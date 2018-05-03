@@ -6,16 +6,20 @@ buildscript {
         jcenter()
         mavenLocal()
     }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+    }
 }
 
 
-group 'com.purbon.fairsearch'
+group 'com.purbon'
 version '0.1'
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'
 apply plugin: 'idea'
-
+apply plugin: 'com.bmuschko.nexus'
 
 sourceCompatibility = 1.8
 
@@ -44,11 +48,57 @@ publishing {
             from components.java
         }
         maven(MavenPublication) {
-            groupId 'com.purbon.fairsearch'
-            artifactId 'core'
+            groupId 'com.purbon'
+            artifactId 'fairsearch.core'
             version '0.1'
 
             from components.java
         }
     }
+}
+
+modifyPom {
+    project {
+        name 'fairsearch core'
+        description 'Fairsearch core algorithms'
+        url 'https://github.com/fair-search/fairsearch-core'
+        inceptionYear '2018'
+        scm {
+            url 'https://github.com/fair-search/fairsearch-core'
+            connection 'scm:https://github.com/fair-search/fairsearch-core.git'
+            developerConnection 'scm:git@github.com:fair-search/fairsearch-core.git'
+        }
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                distribution 'repo'
+            }
+        }
+        developers {
+            developer {
+                id 'purbon'
+                name 'Pere Urbon'
+                email 'pere.urbon@acm.org'
+            }
+        }
+    }
+}
+extraArchive {
+    sources = true
+    tests = true
+    javadoc = true
+}
+nexus {
+    sign = true
+    repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+}
+
+plugins {
+    id 'io.codearte.nexus-staging' version '0.11.0'
+}
+nexusStaging {
+    packageGroup = "com.purbon" //optional if packageGroup == project.getGroup()
+    stagingProfileId = "yourStagingProfileId" //when not defined will be got from server using "packageGroup"
 }
