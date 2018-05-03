@@ -94,11 +94,3 @@ nexus {
     repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
     snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
 }
-
-plugins {
-    id 'io.codearte.nexus-staging' version '0.11.0'
-}
-nexusStaging {
-    packageGroup = "com.purbon" //optional if packageGroup == project.getGroup()
-    stagingProfileId = "yourStagingProfileId" //when not defined will be got from server using "packageGroup"
-}
