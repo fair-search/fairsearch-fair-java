@@ -1,6 +1,6 @@
 package com.purbon.search.fair;
 
-import com.purbon.search.fair.fairness.MTableGenerator;
+import com.purbon.search.fair.lib.MTableGenerator;
 import org.apache.lucene.util.LuceneTestCase;
 import org.junit.Before;
 
@@ -26,33 +26,27 @@ public class MTableGenTests extends LuceneTestCase {
         this.mtable1 = loadMTableFixture("mtable1.dat");
         //n=100, k=50, p=0.5, a=0.3
         this.mtable2 = loadMTableFixture("mtable2.dat");
-        //n=1000, k=500, p=0.5, a=0.01
-        this.mtable3 = loadMTableFixture("mtable3.dat");
     }
 
     public void testComputeMTableWithValidParametersTest() {
-        MTableGenerator gen1 = new MTableGenerator(80, 40, 0.6, 0.1);
-        MTableGenerator gen2 = new MTableGenerator(100, 50, 0.5, 0.3);
-        MTableGenerator gen3 = new MTableGenerator(1000, 500, 0.5, 0.01);
+        MTableGenerator gen1 = new MTableGenerator(80, .6, 0.1, false);
+        MTableGenerator gen2 = new MTableGenerator(100, 0.5, 0.3, false);
 
         boolean gen1MatchesMTable1 = false;
         boolean gen2MatchesMTable2 = false;
-        boolean gen3MatchesMTable3 = false;
 
         int[] gen1MTable = gen1.getMTable();
         int[] gen2MTable = gen2.getMTable();
-        int[] gen3MTable = gen3.getMTable();
 
         gen1MatchesMTable1 = arraysAreEqual(gen1MTable, mtable1);
         gen2MatchesMTable2 = arraysAreEqual(gen2MTable, mtable2);
-        gen3MatchesMTable3 = arraysAreEqual(gen3MTable, mtable3);
 
-        assertTrue(gen1MatchesMTable1 && gen2MatchesMTable2 && gen3MatchesMTable3);
+        assertTrue(gen1MatchesMTable1 && gen2MatchesMTable2);
     }
 
     public void testInitializeWithInvalidKValueTest() {
         try {
-            MTableGenerator gen = new MTableGenerator(80, 81, 0.5, 0.1);
+            MTableGenerator gen = new MTableGenerator(80, 81, 0.5, false);
             fail("Should throw IllegalArgumentException");
         } catch (IllegalArgumentException e) {
         }
@@ -60,7 +54,7 @@ public class MTableGenTests extends LuceneTestCase {
 
     public void testInitializeWithInvalidNValueTest() {
         try {
-            MTableGenerator gen = new MTableGenerator(0, 1, 0.5, 0.1);
+            MTableGenerator gen = new MTableGenerator(0, 1, 0.5, false);
             fail("Should throw IllegalArgumentException");
         } catch (IllegalArgumentException e) {
         }
@@ -68,7 +62,7 @@ public class MTableGenTests extends LuceneTestCase {
 
     public void testInitializeWithInvalidPValueTest() {
         try {
-            MTableGenerator gen = new MTableGenerator(80, 40, 1.1, 0.1);
+            MTableGenerator gen = new MTableGenerator(80, 0.1, 1.1, false);
             fail("Should throw IllegalArgumentException");
         } catch (IllegalArgumentException e) {
         }
@@ -76,7 +70,7 @@ public class MTableGenTests extends LuceneTestCase {
 
     public void testInitializeWithInvalidAlphaValueTest() {
         try {
-            MTableGenerator gen = new MTableGenerator(80, 40, 0.5, 1);
+            MTableGenerator gen = new MTableGenerator(800, 0.1, 0.5, true);
             fail("Should throw IllegalArgumentException");
         } catch (IllegalArgumentException e) {
         }

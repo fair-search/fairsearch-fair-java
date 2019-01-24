@@ -1,8 +1,8 @@
 package com.purbon.search.fair;
 
-import com.purbon.search.fair.fairness.FairnessTableLookup;
-import com.purbon.search.fair.topk.FairTopKImpl;
-import com.purbon.search.fair.fairness.MTableGenerator;
+import com.purbon.search.fair.lib.FairTopK;
+import com.purbon.search.fair.lib.MTableGenerator;
+import com.purbon.search.fair.utils.FairnessTableLookup;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.util.LuceneTestCase;
@@ -24,14 +24,14 @@ public class FairTopKTests extends LuceneTestCase {
         @Override
         public int[] fairnessAsTable(int k, float p, float a) {
 
-            MTableGenerator tableGenerator = new MTableGenerator(k, p, a);
+            MTableGenerator tableGenerator = new MTableGenerator(k, p, a, false);
             return tableGenerator.getMTable();
         }
     }
 
     public void testFairRankingWith10Elements() {
 
-        FairTopKImpl topK = new FairTopKImpl(new FairnessTableMock());
+        FairTopK topK = new FairTopK(new FairnessTableMock());
         List<ScoreDoc> npQueue = new ArrayList<>();
         List<ScoreDoc> pQueue = new ArrayList<>();
 
@@ -63,7 +63,7 @@ public class FairTopKTests extends LuceneTestCase {
 
     public void testFairRankingWith10ElementsAndFewProtected() {
 
-        FairTopKImpl topK = new FairTopKImpl(new FairnessTableMock());
+        FairTopK topK = new FairTopK(new FairnessTableMock());
         List<ScoreDoc> npQueue = new ArrayList<>();
         List<ScoreDoc> pQueue = new ArrayList<>();
 
@@ -96,7 +96,7 @@ public class FairTopKTests extends LuceneTestCase {
 
     public void testFairRankingWith10ElementsAndNoProtectedElements() {
 
-        FairTopKImpl topK = new FairTopKImpl(new FairnessTableMock());
+        FairTopK topK = new FairTopK(new FairnessTableMock());
         List<ScoreDoc> npQueue = new ArrayList<>();
         List<ScoreDoc> pQueue = new ArrayList<>();
 
@@ -127,7 +127,7 @@ public class FairTopKTests extends LuceneTestCase {
 
     public void testFairRankingWith10ElementsAndBiggerKValue() {
 
-        FairTopKImpl topK = new FairTopKImpl(new FairnessTableMock());
+        FairTopK topK = new FairTopK(new FairnessTableMock());
         List<ScoreDoc> npQueue = new ArrayList<>();
         List<ScoreDoc> pQueue = new ArrayList<>();
 

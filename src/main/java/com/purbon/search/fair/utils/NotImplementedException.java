@@ -1,4 +1,4 @@
-package com.purbon.search.fair;
+package com.purbon.search.fair.utils;
 
 public class NotImplementedException extends RuntimeException {
 

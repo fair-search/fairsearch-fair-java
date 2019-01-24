@@ -1,26 +1,33 @@
-package com.purbon.search.fair.topk;
+package com.purbon.search.fair.lib;
 
-import com.purbon.search.fair.FairScorer;
-import com.purbon.search.fair.FairTopK;
-import com.purbon.search.fair.fairness.FairnessTableLookup;
+import com.purbon.search.fair.utils.FairnessTableLookup;
+import com.purbon.search.fair.utils.InternalFairnessTableLookup;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class FairTopKImpl implements FairTopK {
+public class FairTopKLuceneDocs {
 
     private FairnessTableLookup fairnessLookup;
 
-    public FairTopKImpl(FairnessTableLookup fairnessLookup) {
+    public FairTopKLuceneDocs()
+    {
+        fairnessLookup = new InternalFairnessTableLookup();
+    }
+
+    public FairTopKLuceneDocs(FairnessTableLookup fairnessLookup) {
         this.fairnessLookup = fairnessLookup;
     }
 
     public TopDocs fairTopK(List<ScoreDoc> npQueue, List<ScoreDoc> pQueue, int k, float p, float alpha) {
 
-        FairScorer scorer = new FairScorer(k);
+        // we'll re-order the documents manually, but ES wanted a descending "score" for each element
+        // so, we'll just take k as the highest score and assign a decreased number to the following
+        long scorer = k;
 
+        // get the mtable
         int [] m = fairnessLookup.fairnessAsTable(k, p, alpha);
 
         int npSize = npQueue.size();
@@ -37,20 +44,20 @@ public class FairTopKImpl implements FairTopK {
             ScoreDoc doc;
             if (tp  >= pSize) { // no more protected candidates available, take non protected
                 doc = npQueue.get(tn);
-                doc.score = scorer.score(doc);
+                doc.score = scorer--;
                 t[i] = doc;
                 i = i + 1;
                 tn = tn + 1;
             } else if (tn >= npSize) { // no more non protected candidates, take protected instead.
                 doc = pQueue.get(tp);
-                doc.score = scorer.score(doc);
+                doc.score = scorer--;
                 t[i] = doc;
                 i = i + 1;
                 tp = tp + 1;
                 countProtected = countProtected + 1;
             } else if (countProtected < m[tp+tn]) { // protected candidates
                 doc = pQueue.get(tp);
-                doc.score = scorer.score(doc);
+                doc.score = scorer--;
                 t[i] = doc;
                 i = i + 1;
                 tp = tp + 1;
@@ -58,14 +65,14 @@ public class FairTopKImpl implements FairTopK {
             } else { // Non protected candidates
                 if (pQueue.get(tp).score >= npQueue.get(tn).score) {
                     doc = pQueue.get(tp);
-                    doc.score = scorer.score(doc);
+                    doc.score = scorer--;
                     t[i] = doc;
                     i = i + 1;
                     tp = tp + 1;
                     countProtected = countProtected + 1;
                 } else {
                     doc = npQueue.get(tn);
-                    doc.score = scorer.score(doc);
+                    doc.score = scorer--;
                     t[i] = doc;
                     i = i + 1;
                     tn = tn + 1;
