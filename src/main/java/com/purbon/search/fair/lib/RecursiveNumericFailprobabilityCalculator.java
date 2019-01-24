@@ -1,6 +1,6 @@
-package com.purbon.search.fair.utils;
+package com.purbon.search.fair.lib;
 
-import com.purbon.search.fair.MTableGenerator;
+import com.purbon.search.fair.utils.LegalAssignmentKey;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,12 +72,12 @@ public class RecursiveNumericFailprobabilityCalculator extends FailprobabilityCa
 
     private MTableFailProbPair computeBoundary(int k, double p, double alpha) {
         int[] mTable = new MTableGenerator(k, p, alpha, false).getMTable();
-        double failProb = calculateFailprobability(mTable, alpha);
+        double failProb = calculateFailprobability(mTable, k, p, alpha);
         return new MTableFailProbPair(k, p, alpha, failProb, mTable);
     }
 
     @Override
-    public double calculateFailprobability(int[] mtable, double alpha) {
+    public double calculateFailprobability(int[] mtable, int k, double p, double alpha) {
         if (mtable[mtable.length - 1] == 0) {
             return 0;
         }

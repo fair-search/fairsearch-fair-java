@@ -1,4 +1,4 @@
-package com.purbon.search.fair.fairness;
+package com.purbon.search.fair.utils;
 
 public interface FairnessTableLookup {
 

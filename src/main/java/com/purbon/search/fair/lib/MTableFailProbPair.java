@@ -1,4 +1,4 @@
-package com.purbon.search.fair.utils;
+package com.purbon.search.fair.lib;
 
 public class MTableFailProbPair {
 

@@ -1,5 +1,7 @@
-package com.purbon.search.fair.utils;
+package com.purbon.search.fair.lib;
 
+import com.purbon.search.fair.utils.BinomDistKey;
+import com.purbon.search.fair.utils.DataFrame;
 import org.apache.commons.math3.distribution.BinomialDistribution;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public abstract class FailprobabilityCalculator {
         this.pmfCache = new HashMap<>();
     }
 
-    public abstract double calculateFailprobability(int[] mtable, double alpha);
+    public abstract double calculateFailprobability(int[] mtable, int k, double p, double alpha);
 
     double getFromPmfCache(int trials, int successes){
         BinomDistKey key = new BinomDistKey(trials,successes);

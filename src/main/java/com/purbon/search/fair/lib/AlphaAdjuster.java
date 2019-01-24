@@ -1,4 +1,4 @@
-package com.purbon.search.fair;
+package com.purbon.search.fair.lib;
 
 import com.purbon.search.fair.utils.DataFrame;
 import org.apache.commons.math3.distribution.BinomialDistribution;

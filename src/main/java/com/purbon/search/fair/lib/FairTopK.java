@@ -8,16 +8,16 @@ import org.apache.lucene.search.TopDocs;
 import java.util.Arrays;
 import java.util.List;
 
-public class FairTopKLuceneDocs {
+public class FairTopK {
 
     private FairnessTableLookup fairnessLookup;
 
-    public FairTopKLuceneDocs()
+    public FairTopK()
     {
         fairnessLookup = new InternalFairnessTableLookup();
     }
 
-    public FairTopKLuceneDocs(FairnessTableLookup fairnessLookup) {
+    public FairTopK(FairnessTableLookup fairnessLookup) {
         this.fairnessLookup = fairnessLookup;
     }
 

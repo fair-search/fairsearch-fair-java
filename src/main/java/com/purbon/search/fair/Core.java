@@ -64,7 +64,7 @@ public class Core {
      * Checks if the ranking is fair for the given parameters
      * @param docs        The ranking to be checked
      * @param mtable      The mtable against to check
-     * @return
+     * @return            Returns whether the rankings statisfies the mtable
      */
     public static boolean checkRankingMTable(TopDocs docs, int[] mtable) {
         int countProtected = 0;
@@ -88,10 +88,18 @@ public class Core {
      * @param n           Total number of elements
      * @param p           The proportion of protected candidates in the top-k ranking
      * @param alpha       The significance level
-     * @return
+     * @return            Returns a boolean which specifies whether the ranking is fair
      */
     public static boolean isFair(TopDocs docs, int n, double p, double alpha) {
         MTableGenerator generator = new MTableGenerator(n, p, alpha, true);
         return checkRankingMTable(docs, generator.getMTable());
+    }
+
+    /**
+     * Main method doing not much
+     * @param args
+     */
+    public static void main(String[] args) {
+        System.out.println(System.currentTimeMillis());
     }
 }
