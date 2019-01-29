@@ -1,8 +1,8 @@
-package com.purbon.search.fair;
+package com.fairsearch.fair;
 
-import com.purbon.search.fair.lib.FairTopK;
-import com.purbon.search.fair.lib.MTableGenerator;
-import com.purbon.search.fair.utils.FairnessTableLookup;
+import com.fairsearch.fair.utils.FairnessTableLookup;
+import com.fairsearch.fair.lib.FairTopK;
+import com.fairsearch.fair.lib.MTableGenerator;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.util.LuceneTestCase;

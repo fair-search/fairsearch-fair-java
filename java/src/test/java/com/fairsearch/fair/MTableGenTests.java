@@ -1,6 +1,6 @@
-package com.purbon.search.fair;
+package com.fairsearch.fair;
 
-import com.purbon.search.fair.lib.MTableGenerator;
+import com.fairsearch.fair.lib.MTableGenerator;
 import org.apache.lucene.util.LuceneTestCase;
 import org.junit.Before;
 

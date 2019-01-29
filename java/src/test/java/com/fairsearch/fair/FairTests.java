@@ -1,16 +1,16 @@
-package com.purbon.search.fair;
+package com.fairsearch.fair;
 
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.util.LuceneTestCase;
 
-public class CoreTests extends LuceneTestCase {
+public class FairTests extends LuceneTestCase {
 
     public void testAdjustAlpha() {
         int n = 20;
         double p = 0.25;
         double alpha = 0.1;
 
-        double res = Core.adjustAlpha(n, p, alpha);
+        double res = Fair.adjustAlpha(n, p, alpha);
 
         assertNotEquals(alpha, res);
     }
@@ -20,8 +20,8 @@ public class CoreTests extends LuceneTestCase {
         double p = 0.25;
         double alpha = 0.1;
 
-        int[] adjustedMTable = Core.createAdjustedMTable(n, p, alpha);
-        int[] unadjustedMTable = Core.createUnadjustedMTable(n, p, alpha);
+        int[] adjustedMTable = Fair.createAdjustedMTable(n, p, alpha);
+        int[] unadjustedMTable = Fair.createUnadjustedMTable(n, p, alpha);
 
         assertEquals(adjustedMTable.length, unadjustedMTable.length);
 
@@ -42,9 +42,9 @@ public class CoreTests extends LuceneTestCase {
         double p = 0.25;
         double alpha = 0.1;
 
-        int[] mtable = Core.createUnadjustedMTable(n, p, alpha);
+        int[] mtable = Fair.createUnadjustedMTable(n, p, alpha);
 
-        double res = Core.computeFailureProbability(mtable, n, p, alpha);
+        double res = Fair.computeFailureProbability(mtable, n, p, alpha);
 
         System.out.println(res);
 
@@ -61,6 +61,6 @@ public class CoreTests extends LuceneTestCase {
 
         assertEquals(1, rankings.length);
 
-        assertEquals(true, Core.isFair(rankings[0], n, p, alpha));
+        assertEquals(true, Fair.isFair(rankings[0], n, p, alpha));
     }
 }

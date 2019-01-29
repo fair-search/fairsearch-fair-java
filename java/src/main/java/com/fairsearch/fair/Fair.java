@@ -1,15 +1,15 @@
-package com.purbon.search.fair;
+package com.fairsearch.fair;
 
-import com.purbon.search.fair.lib.FailprobabilityCalculator;
-import com.purbon.search.fair.lib.MTableGenerator;
-import com.purbon.search.fair.lib.RecursiveNumericFailprobabilityCalculator;
-import com.purbon.search.fair.utils.FairScoreDoc;
+import com.fairsearch.fair.lib.FailprobabilityCalculator;
+import com.fairsearch.fair.lib.MTableGenerator;
+import com.fairsearch.fair.lib.RecursiveNumericFailprobabilityCalculator;
+import com.fairsearch.fair.utils.FairScoreDoc;
 import org.apache.lucene.search.TopDocs;
 
 /**
  * This class serves as a wrapper around the utilities we have created for FA*IR ranking
  */
-public class Core {
+public class Fair {
 
     /**
      * Creates an mtable using alpha unadjusted.

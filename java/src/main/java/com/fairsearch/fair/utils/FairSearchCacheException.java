@@ -1,4 +1,4 @@
-package com.purbon.search.fair.utils;
+package com.fairsearch.fair.utils;
 
 public class FairSearchCacheException extends RuntimeException {
 

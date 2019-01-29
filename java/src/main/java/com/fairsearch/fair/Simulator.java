@@ -1,6 +1,7 @@
-package com.purbon.search.fair;
+package com.fairsearch.fair;
 
-import com.purbon.search.fair.utils.FairScoreDoc;
+import com.fairsearch.fair.utils.FairScoreDoc;
+import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.lucene.search.TopDocs;
 
 import java.util.Arrays;
@@ -22,10 +23,11 @@ public class Simulator {
     public static TopDocs[] generateRankings(int M, int n, double p) {
         TopDocs[] result = new TopDocs[M];
         for(int i=0;i<M; i++) {
-            Random random = new Random();
-            FairScoreDoc[] docs = random.doubles().limit(n).boxed().map(x -> {
-                return new FairScoreDoc((int)(x*n), (int)(x*n), x <= p);
-            }).collect(Collectors.toList()).toArray(new FairScoreDoc[n]);
+            MersenneTwister mt = new MersenneTwister();
+            FairScoreDoc[] docs = new FairScoreDoc[n];
+            for(int j=0; j<n; j++) {
+                docs[j] = new FairScoreDoc(n-j, n-j, mt.nextDouble() <= p);
+            }
             result[i] = new TopDocs(docs.length, docs, Float.NaN);
         }
 
@@ -40,7 +42,7 @@ public class Simulator {
      */
     public static double computeFailureProbability(int[] mtable, TopDocs[] rankings) {
         return  Arrays.stream(rankings)
-                .filter(x -> !Core.checkRankingMTable(x, mtable))
+                .filter(x -> !Fair.checkRankingMTable(x, mtable))
                 .count() * 1.0 / rankings.length;
     }
 }
