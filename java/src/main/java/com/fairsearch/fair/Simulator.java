@@ -30,7 +30,6 @@ public class Simulator {
             }
             result[i] = new TopDocs(docs.length, docs, Float.NaN);
         }
-
         return result;
     }
 

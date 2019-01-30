@@ -1,4 +1,4 @@
-package com.purbon.search.fair.lib;
+package com.fairsearch.fair.lib;
 
 public class BinarySearchAlphaAdjuster {
 

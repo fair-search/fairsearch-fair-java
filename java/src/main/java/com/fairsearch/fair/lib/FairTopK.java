@@ -1,7 +1,7 @@
-package com.purbon.search.fair.lib;
+package com.fairsearch.fair.lib;
 
-import com.purbon.search.fair.utils.FairnessTableLookup;
-import com.purbon.search.fair.utils.InternalFairnessTableLookup;
+import com.fairsearch.fair.utils.FairnessTableLookup;
+import com.fairsearch.fair.utils.InternalFairnessTableLookup;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 

@@ -1,7 +1,7 @@
-package com.purbon.search.fair.lib;
+package com.fairsearch.fair.lib;
 
-import com.purbon.search.fair.utils.BinomDistKey;
-import com.purbon.search.fair.utils.DataFrame;
+import com.fairsearch.fair.utils.DataFrame;
+import com.fairsearch.fair.utils.BinomDistKey;
 import org.apache.commons.math3.distribution.BinomialDistribution;
 
 import java.util.ArrayList;

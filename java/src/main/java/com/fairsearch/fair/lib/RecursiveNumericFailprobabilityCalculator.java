@@ -1,6 +1,6 @@
-package com.purbon.search.fair.lib;
+package com.fairsearch.fair.lib;
 
-import com.purbon.search.fair.utils.LegalAssignmentKey;
+import com.fairsearch.fair.utils.LegalAssignmentKey;
 
 import java.util.ArrayList;
 import java.util.HashMap;

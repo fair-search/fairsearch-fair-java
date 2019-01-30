@@ -1,6 +1,6 @@
-package com.purbon.search.fair.utils;
+package com.fairsearch.fair.utils;
 
-import com.purbon.search.fair.lib.MTableGenerator;
+import com.fairsearch.fair.lib.MTableGenerator;
 
 import java.util.concurrent.ConcurrentHashMap;
 
