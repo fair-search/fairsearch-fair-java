@@ -21,8 +21,8 @@ The output will go under `build/libs`.
 # Using it in your code
 
 Add the JAR file to the build path of your project and you are *set*. The main functionalities are exposed as static methods in the classes:
-- `com.purbon.search.fair.Core`
-- `com.purbon.search.fair.Simulator`
+- `com.fairsearch.fair.Fair`
+- `com.fairsearch.fair.Simulator`
 
 The library contains sufficient Java doc for each functions.
 
