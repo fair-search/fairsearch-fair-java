@@ -99,7 +99,7 @@ fabric.properties
 /build/
 
 # ignore java builds
-java/build/*
+java/build/*/*
 
 # Ignore Gradle GUI config
 gradle-app.setting
