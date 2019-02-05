@@ -1,6 +1,7 @@
 package com.fairsearch.fair;
 
 import com.fairsearch.fair.lib.FailprobabilityCalculator;
+import com.fairsearch.fair.lib.MTableFailProbPair;
 import com.fairsearch.fair.lib.MTableGenerator;
 import com.fairsearch.fair.lib.RecursiveNumericFailprobabilityCalculator;
 import com.fairsearch.fair.utils.FairScoreDoc;
@@ -43,8 +44,9 @@ public class Fair {
      * @return            The adjusted alpha
      */
     public static double adjustAlpha(int n, double p, double alpha) {
-        MTableGenerator generator = new MTableGenerator(n, p, alpha, true);
-        return generator.getAdjustedAlpha();
+        RecursiveNumericFailprobabilityCalculator adjuster = new RecursiveNumericFailprobabilityCalculator(n, p, alpha);
+        MTableFailProbPair failProbPair = adjuster.adjustAlpha();
+        return failProbPair.getAlpha();
     }
 
     /**
@@ -76,7 +78,7 @@ public class Fair {
         //check number of protected element at each ranking
         for(int i=0; i < docs.scoreDocs.length; i++) {
             countProtected += ((FairScoreDoc)docs.scoreDocs[i]).isProtected ? 1 : 0;
-            if(countProtected < mtable[i])
+            if(countProtected < mtable[i+1])
                 return false;
         }
         return true;
