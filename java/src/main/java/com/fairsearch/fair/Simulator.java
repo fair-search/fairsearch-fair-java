@@ -22,7 +22,7 @@ public class Simulator {
      */
     public static TopDocs[] generateRankings(int M, int n, double p) {
         TopDocs[] result = new TopDocs[M];
-        for(int i=0;i<M; i++) {
+        for(int i=0; i<M; i++) {
             MersenneTwister mt = new MersenneTwister();
             FairScoreDoc[] docs = new FairScoreDoc[n];
             for(int j=0; j<n; j++) {
