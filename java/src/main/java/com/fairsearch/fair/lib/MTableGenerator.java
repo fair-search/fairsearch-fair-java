@@ -48,7 +48,7 @@ public class MTableGenerator {
         DataFrame table = new DataFrame("inv", "block");
         int lastMSeen = 0;
         int lastPosition = 0;
-        for (int position = 1; position < mTable.length; position++) {
+        for (int position = 0; position < mTable.length; position++) {
             if (mTable[position] == lastMSeen + 1) {
                 lastMSeen += 1;
                 table.put(position, position, (position - lastPosition));
@@ -90,9 +90,9 @@ public class MTableGenerator {
     }
 
     private int[] computeMTable() {
-        int[] table = new int[this.n + 1];
-        for (int i = 1; i < this.n + 1; i++) {
-            table[i] = m(i);
+        int[] table = new int[this.n];
+        for (int i = 0; i < this.n; i++) {
+            table[i] = m(i+1);
         }
         return table;
     }

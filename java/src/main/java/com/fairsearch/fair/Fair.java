@@ -70,7 +70,7 @@ public class Fair {
         int countProtected = 0;
 
         //if the mtable has more elements than there are in the top docs return false
-        if(docs.scoreDocs.length + 1 < mtable.length)
+        if(docs.scoreDocs.length < mtable.length)
             return false;
 
         //check number of protected element at each ranking

@@ -47,18 +47,30 @@ public class FairTopKTests extends LuceneTestCase {
         pQueue.add(new ScoreDoc(8, 2));
         pQueue.add(new ScoreDoc(10, 1));
 
-        TopDocs topDocs = topK.fairTopK(npQueue, pQueue, 10, 0.6f, 0.1f );
+        TopDocs topDocs = topK.fairTopK(npQueue, pQueue, 10, 0.6f, 0.1f);
 
         assertEquals(1, topDocs.scoreDocs[0].doc);
         assertEquals(3, topDocs.scoreDocs[1].doc);
-        assertEquals(5, topDocs.scoreDocs[2].doc);
-        assertEquals(2, topDocs.scoreDocs[3].doc);
-        assertEquals(7, topDocs.scoreDocs[4].doc);
-        assertEquals(4, topDocs.scoreDocs[5].doc);
-        assertEquals(9, topDocs.scoreDocs[6].doc);
-        assertEquals(6, topDocs.scoreDocs[7].doc);
+        assertEquals(2, topDocs.scoreDocs[2].doc);
+        assertEquals(5, topDocs.scoreDocs[3].doc);
+        assertEquals(4, topDocs.scoreDocs[4].doc);
+        assertEquals(7, topDocs.scoreDocs[5].doc);
+        assertEquals(6, topDocs.scoreDocs[6].doc);
+        assertEquals(9, topDocs.scoreDocs[7].doc);
         assertEquals(8, topDocs.scoreDocs[8].doc);
         assertEquals(10, topDocs.scoreDocs[9].doc);
+        /**
+         * 1
+         * 3
+         * 2
+         * 5
+         * 4
+         * 7
+         * 6
+         * 8
+         * 9
+         * 10
+         */
     }
 
     public void testFairRankingWith10ElementsAndFewProtected() {
@@ -80,16 +92,16 @@ public class FairTopKTests extends LuceneTestCase {
         pQueue.add(new ScoreDoc(8, 2));
         pQueue.add(new ScoreDoc(10, 1));
 
-        TopDocs topDocs = topK.fairTopK(npQueue, pQueue, 10, 0.6f, 0.1f );
+        TopDocs topDocs = topK.fairTopK(npQueue, pQueue, 10, 0.6f, 0.1f);
 
         assertEquals(1, topDocs.scoreDocs[0].doc);
         assertEquals(3, topDocs.scoreDocs[1].doc);
-        assertEquals(5, topDocs.scoreDocs[2].doc);
-        assertEquals(6, topDocs.scoreDocs[3].doc);
-        assertEquals(7, topDocs.scoreDocs[4].doc);
-        assertEquals(8, topDocs.scoreDocs[5].doc);
-        assertEquals(9, topDocs.scoreDocs[6].doc);
-        assertEquals(10, topDocs.scoreDocs[7].doc);
+        assertEquals(6, topDocs.scoreDocs[2].doc);
+        assertEquals(5, topDocs.scoreDocs[3].doc);
+        assertEquals(8, topDocs.scoreDocs[4].doc);
+        assertEquals(7, topDocs.scoreDocs[5].doc);
+        assertEquals(10, topDocs.scoreDocs[6].doc);
+        assertEquals(9, topDocs.scoreDocs[7].doc);
         assertEquals(2, topDocs.scoreDocs[8].doc);
         assertEquals(4, topDocs.scoreDocs[9].doc);
     }
@@ -111,7 +123,7 @@ public class FairTopKTests extends LuceneTestCase {
         npQueue.add(new ScoreDoc(8, 2));
         npQueue.add(new ScoreDoc(10, 1));
 
-        TopDocs topDocs = topK.fairTopK(npQueue, pQueue, 10, 0.6f, 0.1f );
+        TopDocs topDocs = topK.fairTopK(npQueue, pQueue, 10, 0.6f, 0.1f);
 
         assertEquals(1, topDocs.scoreDocs[0].doc);
         assertEquals(3, topDocs.scoreDocs[1].doc);
@@ -143,16 +155,16 @@ public class FairTopKTests extends LuceneTestCase {
         pQueue.add(new ScoreDoc(8, 2));
         pQueue.add(new ScoreDoc(10, 1));
 
-        TopDocs topDocs = topK.fairTopK(npQueue, pQueue, 20, 0.6f, 0.1f );
+        TopDocs topDocs = topK.fairTopK(npQueue, pQueue, 20, 0.6f, 0.1f);
 
         assertEquals(1, topDocs.scoreDocs[0].doc);
         assertEquals(3, topDocs.scoreDocs[1].doc);
-        assertEquals(5, topDocs.scoreDocs[2].doc);
-        assertEquals(2, topDocs.scoreDocs[3].doc);
-        assertEquals(7, topDocs.scoreDocs[4].doc);
-        assertEquals(4, topDocs.scoreDocs[5].doc);
-        assertEquals(9, topDocs.scoreDocs[6].doc);
-        assertEquals(6, topDocs.scoreDocs[7].doc);
+        assertEquals(2, topDocs.scoreDocs[2].doc);
+        assertEquals(5, topDocs.scoreDocs[3].doc);
+        assertEquals(4, topDocs.scoreDocs[4].doc);
+        assertEquals(7, topDocs.scoreDocs[5].doc);
+        assertEquals(6, topDocs.scoreDocs[6].doc);
+        assertEquals(9, topDocs.scoreDocs[7].doc);
         assertEquals(8, topDocs.scoreDocs[8].doc);
         assertEquals(10, topDocs.scoreDocs[9].doc);
     }
