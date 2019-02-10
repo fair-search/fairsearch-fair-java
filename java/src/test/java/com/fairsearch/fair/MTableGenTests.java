@@ -38,8 +38,8 @@ public class MTableGenTests extends LuceneTestCase {
         int[] gen1MTable = gen1.getMTable();
         int[] gen2MTable = gen2.getMTable();
 
-        gen1MatchesMTable1 = arraysAreEqual(gen1MTable, mtable1);
-        gen2MatchesMTable2 = arraysAreEqual(gen2MTable, mtable2);
+        gen1MatchesMTable1 = arraysAreEqual(Arrays.copyOfRange(gen1MTable,1,gen1MTable.length), mtable1);
+        gen2MatchesMTable2 = arraysAreEqual(Arrays.copyOfRange(gen2MTable, 1, gen2MTable.length), mtable2);
 
         assertTrue(gen1MatchesMTable1 && gen2MatchesMTable2);
     }

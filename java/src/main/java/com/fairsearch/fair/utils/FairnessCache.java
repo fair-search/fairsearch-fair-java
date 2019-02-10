@@ -2,6 +2,7 @@ package com.fairsearch.fair.utils;
 
 import com.fairsearch.fair.lib.MTableGenerator;
 
+import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class FairnessCache {
@@ -25,7 +26,8 @@ public class FairnessCache {
 
     private int[] generateMtable(int k, float p, float a, String id) {
         MTableGenerator gen = new MTableGenerator(k, p, a, true);
-        return gen.getMTable();
+        int[] mtable = gen.getMTable();
+        return Arrays.copyOfRange(mtable,1,mtable.length);
     }
 
     private static String generateId(float proportion, float alpha, int k) {

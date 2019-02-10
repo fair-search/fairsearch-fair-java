@@ -8,6 +8,7 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.util.LuceneTestCase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -23,9 +24,9 @@ public class FairTopKTests extends LuceneTestCase {
 
         @Override
         public int[] fairnessAsTable(int k, float p, float a) {
-
-            MTableGenerator tableGenerator = new MTableGenerator(k, p, a, false);
-            return tableGenerator.getMTable();
+            MTableGenerator gen = new MTableGenerator(k, p, a, true);
+            int[] mtable = gen.getMTable();
+            return Arrays.copyOfRange(mtable,1,mtable.length);
         }
     }
 
@@ -51,26 +52,14 @@ public class FairTopKTests extends LuceneTestCase {
 
         assertEquals(1, topDocs.scoreDocs[0].doc);
         assertEquals(3, topDocs.scoreDocs[1].doc);
-        assertEquals(2, topDocs.scoreDocs[2].doc);
-        assertEquals(5, topDocs.scoreDocs[3].doc);
-        assertEquals(4, topDocs.scoreDocs[4].doc);
-        assertEquals(7, topDocs.scoreDocs[5].doc);
-        assertEquals(6, topDocs.scoreDocs[6].doc);
-        assertEquals(9, topDocs.scoreDocs[7].doc);
+        assertEquals(5, topDocs.scoreDocs[2].doc);
+        assertEquals(2, topDocs.scoreDocs[3].doc);
+        assertEquals(7, topDocs.scoreDocs[4].doc);
+        assertEquals(4, topDocs.scoreDocs[5].doc);
+        assertEquals(9, topDocs.scoreDocs[6].doc);
+        assertEquals(6, topDocs.scoreDocs[7].doc);
         assertEquals(8, topDocs.scoreDocs[8].doc);
         assertEquals(10, topDocs.scoreDocs[9].doc);
-        /**
-         * 1
-         * 3
-         * 2
-         * 5
-         * 4
-         * 7
-         * 6
-         * 8
-         * 9
-         * 10
-         */
     }
 
     public void testFairRankingWith10ElementsAndFewProtected() {
@@ -96,12 +85,12 @@ public class FairTopKTests extends LuceneTestCase {
 
         assertEquals(1, topDocs.scoreDocs[0].doc);
         assertEquals(3, topDocs.scoreDocs[1].doc);
-        assertEquals(6, topDocs.scoreDocs[2].doc);
-        assertEquals(5, topDocs.scoreDocs[3].doc);
-        assertEquals(8, topDocs.scoreDocs[4].doc);
-        assertEquals(7, topDocs.scoreDocs[5].doc);
-        assertEquals(10, topDocs.scoreDocs[6].doc);
-        assertEquals(9, topDocs.scoreDocs[7].doc);
+        assertEquals(5, topDocs.scoreDocs[2].doc);
+        assertEquals(6, topDocs.scoreDocs[3].doc);
+        assertEquals(7, topDocs.scoreDocs[4].doc);
+        assertEquals(8, topDocs.scoreDocs[5].doc);
+        assertEquals(9, topDocs.scoreDocs[6].doc);
+        assertEquals(10, topDocs.scoreDocs[7].doc);
         assertEquals(2, topDocs.scoreDocs[8].doc);
         assertEquals(4, topDocs.scoreDocs[9].doc);
     }
@@ -159,12 +148,12 @@ public class FairTopKTests extends LuceneTestCase {
 
         assertEquals(1, topDocs.scoreDocs[0].doc);
         assertEquals(3, topDocs.scoreDocs[1].doc);
-        assertEquals(2, topDocs.scoreDocs[2].doc);
-        assertEquals(5, topDocs.scoreDocs[3].doc);
-        assertEquals(4, topDocs.scoreDocs[4].doc);
-        assertEquals(7, topDocs.scoreDocs[5].doc);
-        assertEquals(6, topDocs.scoreDocs[6].doc);
-        assertEquals(9, topDocs.scoreDocs[7].doc);
+        assertEquals(5, topDocs.scoreDocs[2].doc);
+        assertEquals(2, topDocs.scoreDocs[3].doc);
+        assertEquals(7, topDocs.scoreDocs[4].doc);
+        assertEquals(4, topDocs.scoreDocs[5].doc);
+        assertEquals(9, topDocs.scoreDocs[6].doc);
+        assertEquals(6, topDocs.scoreDocs[7].doc);
         assertEquals(8, topDocs.scoreDocs[8].doc);
         assertEquals(10, topDocs.scoreDocs[9].doc);
     }
