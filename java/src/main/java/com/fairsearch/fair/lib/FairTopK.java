@@ -55,7 +55,7 @@ public class FairTopK {
                 i = i + 1;
                 tp = tp + 1;
                 countProtected = countProtected + 1;
-            } else if (countProtected < m[tp+tn]) { // protected candidates
+            } else if (countProtected < m[tp+tn+1]) { // protected candidates
                 doc = pQueue.get(tp);
                 doc.score = scorer--;
                 t[i] = doc;

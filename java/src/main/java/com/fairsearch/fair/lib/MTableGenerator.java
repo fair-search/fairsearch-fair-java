@@ -107,6 +107,11 @@ public class MTableGenerator {
         }
     }
 
+    /**
+     * The function returns the generated mtable. The mtable contains k+1 elements due to the fact the original paper
+     * assumed a 0th position, which later not used for the rankings. So, when using the mtable, ignore the 0th element.
+     * @return
+     */
     public int[] getMTable() {
         if (this.mTable == null) {
             this.mTable = computeMTable();

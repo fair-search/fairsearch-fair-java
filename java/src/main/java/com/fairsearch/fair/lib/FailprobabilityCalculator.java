@@ -12,7 +12,6 @@ public abstract class FailprobabilityCalculator {
     int k;
     double p;
     double alpha;
-    int[] mTable;
     DataFrame auxMTable;
     HashMap<BinomDistKey, Double> pmfCache;
 
@@ -24,7 +23,7 @@ public abstract class FailprobabilityCalculator {
         this.pmfCache = new HashMap<>();
     }
 
-    public abstract double calculateFailprobability(int[] mtable, int k, double p, double alpha);
+    public abstract double calculateFailprobability(int k, double p, double alpha);
 
     double getFromPmfCache(int trials, int successes){
         BinomDistKey key = new BinomDistKey(trials,successes);

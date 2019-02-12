@@ -51,15 +51,14 @@ public class Fair {
 
     /**
      * Computes analytically the probability that a ranking created with the simulator will fail to pass the mtable
-     * @param mtable      The mtable to check against
      * @param n           Total number of elements
      * @param p           The proportion of protected candidates in the top-k ranking
      * @param alpha       The significance level
      * @return            The adjusted alpha
      */
-    public static double computeFailureProbability(int[] mtable, int n, double p, double alpha) {
+    public static double computeFailureProbability(int n, double p, double alpha) {
         FailprobabilityCalculator calculator = new RecursiveNumericFailprobabilityCalculator(n, p, alpha);
-        return calculator.calculateFailprobability(mtable, n, p, alpha);
+        return calculator.calculateFailprobability(n, p, alpha);
     }
 
     /**

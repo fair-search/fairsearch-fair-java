@@ -42,9 +42,7 @@ public class FairTests extends LuceneTestCase {
         double p = 0.25;
         double alpha = 0.1;
 
-        int[] mtable = Fair.createUnadjustedMTable(n, p, alpha);
-
-        double res = Fair.computeFailureProbability(mtable, n, p, alpha);
+        double res = Fair.computeFailureProbability(n, p, alpha);
 
         System.out.println(res);
 
