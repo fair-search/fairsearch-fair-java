@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.fairsearch.fair.SimulatorTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-01-29T20:14:56" hostname="MARVIN" time="50.66">
-  <properties/>
-  <testcase name="testFailProbabilityCalculatorWithSimulator" classname="com.fairsearch.fair.SimulatorTests" time="50.66"/>
-  <system-out><![CDATA[true, 200, 0,10, 0,05
-true, 200, 0,20, 0,01
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
