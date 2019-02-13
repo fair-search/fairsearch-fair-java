@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: fairsearchcore
+Version: 0.0.1
+Summary: A Python library with the core algorithms used to do fair search. 
+Home-page: https://github.com/fair-search/fairsearch-core
+Author: Ivan Kitanovski
+Author-email: ivan.kitanovski@gmail.com
+License: The Apache Software License, Version 2.0
+Description: UNKNOWN
+Keywords: search,fairness
+Platform: UNKNOWN

@@ -24,7 +24,7 @@ Add the JAR file to the build path of your project and you are *set*. The main f
 - `com.fairsearch.fair.Fair`
 - `com.fairsearch.fair.Simulator`
 
-The library contains sufficient Java doc for each functions.
+The library contains sufficient Java doc for each of the functions.
 
 # Builds
 

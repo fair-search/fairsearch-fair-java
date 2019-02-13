@@ -14,6 +14,7 @@ public class MTableGenerator {
     private boolean adjustAlpha;
 
     /**
+     * This is the class used to generate an MTable. Due to the way the mtable is created
      * @param n           Total number of elements
      * @param p           The proportion of protected candidates in the top-k ranking
      * @param alpha       The significance level

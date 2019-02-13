@@ -58,7 +58,7 @@ publishing {
             from components.java
         }
         maven(MavenPublication) {
-            groupId 'com.purbon'
+            groupId 'com.fairserach'
             artifactId 'fairsearch.core'
             version '0.1'
 
