@@ -46,6 +46,15 @@ public class MTableGenerator {
      * @return A Dataframe with the columns "inv" and "block" for the values of the inverse mTable and blocksize
      */
     public DataFrame computeAuxTMTable() {
+        return computeAuxTMTable(mTable);
+    }
+
+    /**
+     * Stores the inverse of an mTable entry and the size of the block with respect to the inverse
+     *
+     * @return A Dataframe with the columns "inv" and "block" for the values of the inverse mTable and blocksize
+     */
+    public static DataFrame computeAuxTMTable(int[] mTable) {
         DataFrame table = new DataFrame("inv", "block");
         int lastMSeen = 0;
         int lastPosition = 0;

@@ -23,7 +23,7 @@ public abstract class FailprobabilityCalculator {
         this.pmfCache = new HashMap<>();
     }
 
-    public abstract double calculateFailprobability(int k, double p, double alpha);
+    public abstract double calculateFailprobability(int[] mtable);
 
     double getFromPmfCache(int trials, int successes){
         BinomDistKey key = new BinomDistKey(trials,successes);

@@ -6,22 +6,24 @@ import org.apache.lucene.util.LuceneTestCase;
 public class FairTests extends LuceneTestCase {
 
     public void testAdjustAlpha() {
-        int n = 20;
+        int k = 20;
         double p = 0.25;
         double alpha = 0.1;
+        Fair fair = new Fair(k, p, alpha);
 
-        double res = Fair.adjustAlpha(n, p, alpha);
+        double res = fair.adjustAlpha();
 
         assertNotEquals(alpha, res);
     }
 
     public void testCreateMTables() {
-        int n = 20;
+        int k = 20;
         double p = 0.25;
         double alpha = 0.1;
+        Fair fair = new Fair(k, p, alpha);
 
-        int[] adjustedMTable = Fair.createAdjustedMTable(n, p, alpha);
-        int[] unadjustedMTable = Fair.createUnadjustedMTable(n, p, alpha);
+        int[] adjustedMTable = fair.createAdjustedMTable();
+        int[] unadjustedMTable = fair.createUnadjustedMTable();
 
         assertEquals(adjustedMTable.length, unadjustedMTable.length);
 
@@ -41,24 +43,26 @@ public class FairTests extends LuceneTestCase {
         int n = 20;
         double p = 0.25;
         double alpha = 0.1;
+        Fair fair = new Fair(n, p, alpha);
 
-        double res = Fair.computeFailureProbability(n, p, alpha);
+        int[] adjustedMTable = fair.createAdjustedMTable();
 
-        System.out.println(res);
+        double res = fair.computeFailureProbability(adjustedMTable);
 
         assertEquals(true, res > 0 && res < 1);
     }
 
 
     public void testIsFair() {
-        int n = 20;
+        int k = 20;
         double p = 0.25;
         double alpha = 0.1;
+        Fair fair = new Fair(k, p, alpha);
 
-        TopDocs[] rankings = Simulator.generateRankings(1, n, p);
+        TopDocs[] rankings = Simulator.generateRankings(1, k, p);
 
         assertEquals(1, rankings.length);
 
-        assertEquals(true, Fair.isFair(rankings[0], n, p, alpha));
+        assertEquals(true, fair.isFair(rankings[0]));
     }
 }

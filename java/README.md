@@ -20,11 +20,36 @@ The output will go under `build/libs`.
 
 # Using it in your code
 
-Add the JAR file to the build path of your project and you are *set*. The main functionalities are exposed as static methods in the classes:
+Add the JAR file to the build path of your project and you are *set*. The key methods are exposed throughs the following classes:
 - `com.fairsearch.fair.Fair`
 - `com.fairsearch.fair.Simulator`
 
 The library contains sufficient Java doc for each of the functions.
+
+## Sample usage
+```
+int k = 10; // number of topK elements returned (value must be greater than 10)
+double p = 0.2; // proportion of protected candidates in the topK elements (value must be between 0.02 and 0.98) 
+double alpha = 0.1; // significance level (value must be between 0.01 and 0.15)
+
+//create the Fair object 
+Fair fiar = new Fair(k, p, alpha);
+
+//create an mtable using alpha adjusted
+int[] mtable = fair.createAdjustedMTable();
+
+//analytically calculate the fail probability
+double analytical = fair.computeFailureProbability(mtable);
+ 
+int M = 10000; // number of rankings you want to generate
+
+//Generate rankings using the simulator
+TopDocs[] rankings = Simulator.generateRankings(M, k, p);
+
+//experimentally calculate the fail probability
+double experimental = Simulator.computeFailureProbability(mtable, rankings);
+```
+ 
 
 # Builds
 

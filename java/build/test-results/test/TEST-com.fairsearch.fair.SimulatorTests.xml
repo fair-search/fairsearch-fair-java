@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.fairsearch.fair.SimulatorTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-02-12T14:06:28" hostname="MARVIN" time="100.841">
+<testsuite name="com.fairsearch.fair.SimulatorTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2019-02-16T20:06:55" hostname="MARVIN" time="100.341">
   <properties/>
-  <testcase name="testFailProbabilityCalculatorAnalyticallyVSExperimental" classname="com.fairsearch.fair.SimulatorTests" time="100.841"/>
+  <testcase name="testComputeFailureProbability" classname="com.fairsearch.fair.SimulatorTests" time="0.018"/>
+  <testcase name="testFailProbabilityCalculatorAnalyticallyVSExperimental" classname="com.fairsearch.fair.SimulatorTests" time="100.313"/>
+  <testcase name="testGenerateRankings" classname="com.fairsearch.fair.SimulatorTests" time="0.009"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
