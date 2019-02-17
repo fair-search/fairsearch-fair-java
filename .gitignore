@@ -120,3 +120,7 @@ gradle.properties
 *.key
 *.key.secret
 *.gpg
+
+python/fairsearchcore/__pycache__/
+
+python/tests/__pycache__/
