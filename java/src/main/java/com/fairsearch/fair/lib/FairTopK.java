@@ -21,14 +21,14 @@ public class FairTopK {
         this.fairnessLookup = fairnessLookup;
     }
 
-    public TopDocs fairTopK(List<ScoreDoc> npQueue, List<ScoreDoc> pQueue, int k, float p, float alpha) {
+    public TopDocs fairTopK(List<ScoreDoc> npQueue, List<ScoreDoc> pQueue, int k, double p, double alpha) {
 
         // we'll re-order the documents manually, but ES wanted a descending "score" for each element
         // so, we'll just take k as the highest score and assign a decreased number to the following
         long scorer = k;
 
         // get the mtable
-        int [] m = fairnessLookup.fairnessAsTable(k, p, alpha);
+        int [] m = fairnessLookup.fairnessAsTable(k, (float)p, (float)alpha);
 
         int npSize = npQueue.size();
         int pSize = pQueue.size();

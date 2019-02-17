@@ -1,14 +1,17 @@
 package com.fairsearch.fair;
 
 import com.fairsearch.fair.lib.FailprobabilityCalculator;
+import com.fairsearch.fair.lib.FairTopK;
 import com.fairsearch.fair.lib.MTableFailProbPair;
 import com.fairsearch.fair.lib.MTableGenerator;
 import com.fairsearch.fair.lib.RecursiveNumericFailprobabilityCalculator;
 import com.fairsearch.fair.utils.FairScoreDoc;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class serves as a wrapper around the utilities we have created for FA*IR ranking
@@ -19,6 +22,8 @@ public class Fair {
     private double p; //The proportion of protected candidates in the top-k ranking
     private double alpha; //The significance level
 
+    private FairTopK fairTopK;
+
     public Fair(int k, double p, double alpha){
         //check the parameters before using them (this will throw an exception if things don't look good
         validateBasicParameters(k, p, alpha);
@@ -27,6 +32,9 @@ public class Fair {
         this.k = k;
         this.p = p;
         this.alpha = alpha;
+
+        //initialize the FairTopK re-ranker
+        fairTopK = new FairTopK();
     }
 
     /**
@@ -118,6 +126,10 @@ public class Fair {
      */
     public boolean isFair(TopDocs docs) {
         return checkRankingMTable(docs, this.createAdjustedMTable());
+    }
+
+    public TopDocs rerank(List<ScoreDoc> nonProtectedElements, List<ScoreDoc> protectedElements) {
+        return  this.fairTopK.fairTopK(nonProtectedElements, protectedElements, this.k, this.p, this.alpha);
     }
 
     /**
