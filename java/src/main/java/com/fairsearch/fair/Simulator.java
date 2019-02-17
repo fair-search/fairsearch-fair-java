@@ -16,17 +16,17 @@ public class Simulator {
     /**
      * Generates M rankings of n elements using Yang-Stoyanovich process
      * @param M     how many rankings to generate
-     * @param n     how many elements should each ranking have
-     * @param p     what is the probabilty
+     * @param k     how many elements should each ranking have
+     * @param p     what is the probability that a candidate is protected
      * @return      the generated rankings
      */
-    public static TopDocs[] generateRankings(int M, int n, double p) {
+    public static TopDocs[] generateRankings(int M, int k, double p) {
         TopDocs[] result = new TopDocs[M];
         MersenneTwister mt = new MersenneTwister();
         for(int i=0; i<M; i++) {
-            FairScoreDoc[] docs = new FairScoreDoc[n];
-            for(int j=0; j<n; j++) {
-                docs[j] = new FairScoreDoc(n-j, n-j, mt.nextDouble() <= p);
+            FairScoreDoc[] docs = new FairScoreDoc[k];
+            for(int j=0; j<k; j++) {
+                docs[j] = new FairScoreDoc(k-j, k-j, mt.nextDouble() <= p);
             }
             result[i] = new TopDocs(docs.length, docs, Float.NaN);
         }

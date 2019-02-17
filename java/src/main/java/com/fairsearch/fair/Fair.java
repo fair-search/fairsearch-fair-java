@@ -19,8 +19,8 @@ import java.util.List;
 public class Fair {
 
     private int k; //the total number of elements
-    private double p; //The proportion of protected candidates in the top-k ranking
-    private double alpha; //The significance level
+    private double p; //the proportion of protected candidates in the top-k ranking
+    private double alpha; //the significance level
 
     private FairTopK fairTopK;
 
@@ -38,7 +38,7 @@ public class Fair {
     }
 
     /**
-     * Creates an mtable using alpha unadjusted.
+     * Creates an mtable using alpha unadjusted
      * @return            The generated mtable (int[])
      */
     public int[] createUnadjustedMTable() {
@@ -46,7 +46,7 @@ public class Fair {
     }
 
     /**
-     * Creates an mtable using alpha adjusted.
+     * Creates an mtable using alpha adjusted
      * @return            The generated mtable (int[])
      */
     public int[] createAdjustedMTable() {
@@ -80,7 +80,7 @@ public class Fair {
 
     /**
      * Computes analytically the probability that a ranking created with the simulator will fail to pass the mtable
-     * @return            The adjusted alpha
+     * @return            The fail probability
      */
     public double computeFailureProbability(int[] mtable) {
         if(mtable.length != this.k) {
@@ -133,14 +133,14 @@ public class Fair {
     }
 
     /**
-     * Validates if n (k), p and alpha are in the required ranges
-     * @param n           Total number of elements (above or equal to 10)
+     * Validates if k, p and alpha are in the required ranges
+     * @param k           Total number of elements (above or equal to 10)
      * @param p           The proportion of protected candidates in the top-k ranking (between 0.02 and 0.98)
      * @param alpha       The significance level (between 0.01 and 0.15)
      */
-    private static void validateBasicParameters(int n, double p, double alpha) {
-        if(n < 10) {
-            throw new ValueException("Total number of elements `n (k)` must be above or equal to 10");
+    private static void validateBasicParameters(int k, double p, double alpha) {
+        if(k < 10) {
+            throw new ValueException("Total number of elements `k` must be above or equal to 10");
         }
         if(p < 0.02 || p > 0.98) {
             throw new ValueException("The proportion of protected candidates `p` in the top-k ranking must between 0.02 and 0.98");
@@ -150,7 +150,7 @@ public class Fair {
 
     private static void validateAlpha(double alpha) {
         if(alpha < 0.01 || alpha > 0.15) {
-            throw new ValueException("The significance level `alpha` must be between 0.01 and 0.15)");
+            throw new ValueException("The significance level `alpha` must be between 0.01 and 0.15");
         }
     }
 }
