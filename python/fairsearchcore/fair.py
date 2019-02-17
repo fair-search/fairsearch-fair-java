@@ -3,7 +3,7 @@
 """
 This module serves as a wrapper around the utilities we have created for FA*IR ranking
 """
-from fairsearchcore.alpha_adjustment import AlphaAdjustment
+from fairsearchcore.mtable_generator import AlphaAdjustment
 
 class Fair:
 
@@ -31,8 +31,12 @@ class Fair:
         _validate_alpha(alpha)
 
         # create the mtable
-        mtable = None
-        fc = AlphaAdjustment(k, self.__minProp, self.__alpha)
+        fc = AlphaAdjustment(self.k, self.p, alpha)
+        mtable = fc.mtable.m.tolist()
+        mtable = [int(i) for i in mtable]
+
+        print(mtable)
+
         return mtable
 
     def create_unadjusted_mtable(self):
@@ -40,14 +44,14 @@ class Fair:
         Creates an mtable using alpha unadjusted
         :return:
         """
-        pass
+        return self._create_mtable(self.alpha, False)
 
     def create_adjusted_mtable(self):
         """
         Creates an mtable using alpha adjusted
         :return:
         """
-        pass
+        return self._create_mtable(self.alpha, True)
 
     def adjust_alpha(self):
         """
@@ -61,6 +65,7 @@ class Fair:
         Computes analytically the probability that a ranking created with the simulator will fail to pass the mtable
         :return:
         """
+        pass
 
     def is_fair(self, ranking: list):
         """
@@ -84,13 +89,13 @@ def check_ranking(ranking:list, mtable: list):
         raise ValueError("Number of documents in ranking and mtable length are not the same!")
 
     # check number of protected element at each rank
-    for i, element in ranking:
+    for i, element in enumerate(ranking):
         count_protected += 1 if element == 1 else 0
         if count_protected < mtable[i]:
             return False
     return True
 
-def _validate_basic_parameters(k, p, alpha):
+def _validate_basic_parameters(k: int, p: float, alpha: float):
     """
     Validates if k, p and alpha are in the required ranges
     :param k:           Total number of elements (above or equal to 10)
@@ -104,6 +109,6 @@ def _validate_basic_parameters(k, p, alpha):
 
     _validate_alpha(alpha)
 
-def _validate_alpha(alpha):
+def _validate_alpha(alpha: float):
     if alpha < 0.01 or alpha > 0.15:
         raise ValueError("The significance level `alpha` must be between 0.01 and 0.15")

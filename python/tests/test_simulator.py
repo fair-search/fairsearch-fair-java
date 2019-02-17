@@ -1,4 +1,4 @@
-from fairsearchcore import  simulator
+from fairsearchcore import simulator
 
 def test_fail_probability_calcualtors():
     Ms = [5000, 10000]
