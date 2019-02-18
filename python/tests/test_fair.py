@@ -1,6 +1,5 @@
 from fairsearchcore import fair
 from fairsearchcore import simulator
-from fairsearchcore import mtable_generator
 
 
 def test_is_fair():
@@ -53,15 +52,30 @@ def test_adjust_alpha():
     assert alpha != adjusted_alpha
 
 
-def test_calculate_fail_probability():
+def test_compute_fail_probability():
     k = 20
     p = 0.25
     alpha = 0.1
 
     f = fair.Fair(k, p, alpha)
 
-    adjusted_alpha = f.create_adjusted_mtable()
+    adjusted_mtable = f.create_adjusted_mtable()
 
-    res = f.compute_fail_probability()
+    res = f.compute_fail_probability(adjusted_mtable)
 
-    assert alpha != adjusted_alpha
+    assert 0 < res
+    assert res < 1
+
+
+def test_compute_fail_probability_with_exact_numbers():
+    k = 10
+    p = 0.2
+    alpha = 0.15
+
+    f = fair.Fair(k, p, alpha)
+
+    mtable = f.create_adjusted_mtable()
+
+    res = f.compute_fail_probability(mtable)
+
+    print(res)

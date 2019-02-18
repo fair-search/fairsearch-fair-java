@@ -30,7 +30,7 @@ def compute_fail_probabilty(rankings, mtable):
     :param mtable:      an mtable to check against
     :return:            the ratio of failed rankings
     """
-    return len(list(filter(lambda x: not fair.check_ranking(x, mtable)))) * 1.0 / len(rankings)
+    return len(list(filter(lambda x: not fair.check_ranking(x, mtable), rankings))) * 1.0 / len(rankings)
 
 
 def _generate_ranking(k, p):
