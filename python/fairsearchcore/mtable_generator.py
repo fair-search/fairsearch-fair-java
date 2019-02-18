@@ -14,7 +14,7 @@ class MTableGenerator:
 
     def __init__(self, k: int, p: float, alpha: float, adjust_alpha: bool):
         # TODO: CHECK THIS!!!
-        alpha += fail_prob.EPS
+        # alpha += fail_prob.EPS
 
         # assign parameters
         self.k = k
@@ -30,8 +30,11 @@ class MTableGenerator:
             self.adjusted_alpha = alpha
             self._mtable = self._compute_mtable()
 
-    def get_mtable(self):
+    def mtable(self):
         return [int(i) for i in self._mtable.m.tolist()]
+
+    def mtable_as_dataframe(self):
+        return self._mtable
 
     def m(self, k: int):
         if k < 1:
@@ -39,10 +42,9 @@ class MTableGenerator:
         elif k > self.k:
             raise ValueError("Parameter k must be at most {0}".format(self.k))
 
-        if self.adjust_alpha:
-            return stats.binom.ppf(self.adjusted_alpha, k, self.p)
-        else:
-            return stats.binom.ppf(self.alpha, k, self.p)
+        result = 0
+        result = stats.binom.ppf(self.adjusted_alpha if self.adjust_alpha else self.alpha, k, self.p)
+        return 0 if result < 0 else result
 
     def _compute_mtable(self):
         """ Computes a table containing the minimum number of protected elements

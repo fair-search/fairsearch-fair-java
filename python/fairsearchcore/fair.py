@@ -40,7 +40,7 @@ class Fair:
 
     def _create_mtable(self, alpha: int, adjust_alpha: bool) -> list:
         """
-        Creates an mtable by, if you want, pass your own alpha value(overridng the object's one)
+        Creates an mtable by using the passed alpha value
         :param alpha:           The significance level
         :param adjust_alpha:    Boolean indicating whether the alpha be adjusted or not
         :return:
@@ -51,7 +51,7 @@ class Fair:
         # create the mtable
         fc = mtable_generator.MTableGenerator(self.k, self.p, alpha, adjust_alpha)
 
-        return fc.get_mtable()
+        return fc.mtable()
 
     def adjust_alpha(self):
         """

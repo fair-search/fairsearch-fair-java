@@ -21,17 +21,16 @@ class FailprobabilityCalculator(abc.ABC):
         self.alpha = alpha
 
         self.pmf_cache = {}
-        self.aux_mtable = None
 
     @abc.abstractmethod
     def calculate_fail_probability(self, mtable):
-        pass
+        raise NotImplementedError("This is an abstract method. Implement it!")
 
     def get_from_pmf_cache(self, trials, successes):
         key = (trials, successes)
         if not key in self.pmf_cache:
             # TODO: Check the documentation if this is fine
-            self.pmf_cache[key] = binom.pmf(k=successes, n=trials, p = self.p)
+            self.pmf_cache[key] = binom.pmf(k=successes, n=trials, p=self.p)
         return self.pmf_cache[key]
 
 
@@ -45,7 +44,7 @@ class RecursiveNumericFailprobabilityCalculator(FailprobabilityCalculator):
         self.legal_assignment_cache = {}
 
     def adjust_alpha(self):
-        a_min = 0.0000000000000001
+        a_min = 0
         a_max = self.alpha
         a_mid = (a_min + a_max) / 2
 
@@ -149,6 +148,7 @@ class RecursiveNumericFailprobabilityCalculator(FailprobabilityCalculator):
 
         return self.legal_assignment_cache[key]
 
+
 class LegalAssignmentKey:
     """
     Utility class for the recursive fail prob
@@ -178,7 +178,7 @@ class LegalAssignmentKey:
 
 class MTableFailProbPair:
     """
-    Encapsulation of all parameters for for the interim mtables
+    Encapsulation of all parameters for the interim mtables
     """
     def __init__(self, k, p, alpha, fail_prob, mtable):
         self.k = k

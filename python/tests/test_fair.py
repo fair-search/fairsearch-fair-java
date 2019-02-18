@@ -76,6 +76,10 @@ def test_compute_fail_probability_with_exact_numbers():
 
     mtable = f.create_adjusted_mtable()
 
+    print(mtable)
+
     res = f.compute_fail_probability(mtable)
 
     print(res)
+
+    assert res == 0.1342177280000001
