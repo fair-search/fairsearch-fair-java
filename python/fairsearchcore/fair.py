@@ -51,7 +51,8 @@ class Fair:
         # create the mtable
         fc = mtable_generator.MTableGenerator(self.k, self.p, alpha, adjust_alpha)
 
-        return fc.mtable()
+        # return as list
+        return fc.mtable_as_list()
 
     def adjust_alpha(self):
         """

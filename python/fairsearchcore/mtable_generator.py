@@ -30,19 +30,18 @@ class MTableGenerator:
             self.adjusted_alpha = alpha
             self._mtable = self._compute_mtable()
 
-    def mtable(self):
+    def mtable_as_list(self) -> list:
         return [int(i) for i in self._mtable.m.tolist()]
 
-    def mtable_as_dataframe(self):
+    def mtable_as_dataframe(self) -> pd.DataFrame:
         return self._mtable
 
-    def m(self, k: int):
+    def m(self, k: int) -> int:
         if k < 1:
             raise ValueError("Parameter k must be at least 1")
         elif k > self.k:
             raise ValueError("Parameter k must be at most {0}".format(self.k))
 
-        result = 0
         result = stats.binom.ppf(self.adjusted_alpha if self.adjust_alpha else self.alpha, k, self.p)
         return 0 if result < 0 else result
 

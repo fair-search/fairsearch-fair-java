@@ -104,7 +104,7 @@ class RecursiveNumericFailprobabilityCalculator(FailprobabilityCalculator):
         """
         Returns a tuple of (k, p, alpha, fail_prob, mtable)
         """
-        mtable = mtable_generator.MTableGenerator(self.k, self.p, alpha, False)._mtable
+        mtable = mtable_generator.MTableGenerator(self.k, self.p, alpha, False).mtable_as_dataframe()
         fail_prob = self.calculate_fail_probability(mtable)
         return MTableFailProbPair(self.k, self.p, alpha, fail_prob, mtable)
 
