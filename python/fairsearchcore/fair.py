@@ -3,13 +3,14 @@
 """
 This module serves as a wrapper around the utilities we have created for FA*IR ranking
 """
-from fairsearchcore.mtable_generator import AlphaAdjustment
+from fairsearchcore.mtable_generator import MTableGenerator
+
 
 class Fair:
 
-    k = 10 # the total number of elements
-    p = 0.2 # the proportion of protected candidates in the top-k ranking
-    alpha = 0.1 # the significance level
+    k = 10  # the total number of elements
+    p = 0.2  # the proportion of protected candidates in the top-k ranking
+    alpha = 0.1  # the significance level
 
     def __init__(self, k: int, p: float, alpha: float):
         # check the parameters first
@@ -20,7 +21,7 @@ class Fair:
         self.p = p
         self.alpha = alpha
 
-    def _create_mtable(self, alpha: int, adjust_alpha: float):
+    def _create_mtable(self, alpha: int, adjust_alpha: bool) -> list:
         """
         Creates an mtable by, if you want, pass your own alpha value(overridng the object's one)
         :param alpha:           The significance level
@@ -31,13 +32,11 @@ class Fair:
         _validate_alpha(alpha)
 
         # create the mtable
-        fc = AlphaAdjustment(self.k, self.p, alpha)
-        mtable = fc.mtable.m.tolist()
-        mtable = [int(i) for i in mtable]
+        fc = MTableGenerator(self.k, self.p, alpha, adjust_alpha)
 
-        print(mtable)
+        print(fc.get_mtable())
 
-        return mtable
+        return fc.get_mtable()
 
     def create_unadjusted_mtable(self):
         """
@@ -67,7 +66,7 @@ class Fair:
         """
         pass
 
-    def is_fair(self, ranking: list):
+    def is_fair(self, ranking: list) -> bool:
         """
         Checks if the ranking is fair for the given parameters
         :param ranking:     The ranking to be checked
@@ -75,7 +74,8 @@ class Fair:
         """
         return check_ranking(ranking, self.create_adjusted_mtable())
 
-def check_ranking(ranking:list, mtable: list):
+
+def check_ranking(ranking:list, mtable: list) -> bool:
     """
     Checks if the ranking is fair in respect to the mtable
     :param ranking:     The ranking to be checked
@@ -95,6 +95,7 @@ def check_ranking(ranking:list, mtable: list):
             return False
     return True
 
+
 def _validate_basic_parameters(k: int, p: float, alpha: float):
     """
     Validates if k, p and alpha are in the required ranges
@@ -102,12 +103,13 @@ def _validate_basic_parameters(k: int, p: float, alpha: float):
     :param p:           The proportion of protected candidates in the top-k ranking (between 0.02 and 0.98)
     :param alpha:       The significance level (between 0.01 and 0.15)
     """
-    if k < 10:
-        raise ValueError("Total number of elements `k` must be above or equal to 10")
+    if k < 10 or k > 400:
+        raise ValueError("Total number of elements `k` must between 10 and 400")
     if p < 0.02 or p > 0.98:
         raise ValueError("The proportion of protected candidates `p` in the top-k ranking must between 0.02 and 0.98")
 
     _validate_alpha(alpha)
+
 
 def _validate_alpha(alpha: float):
     if alpha < 0.01 or alpha > 0.15:
