@@ -79,8 +79,8 @@ public class RecursiveNumericFailprobabilityCalculator extends FailprobabilityCa
         int maxProtected = auxMTable.getSumOf("block");
         ArrayList<Integer> blockSizes = auxMTable.getColumn("block");
         blockSizes = sublist(blockSizes, 1, blockSizes.size());
-        double succesProb = findLegalAssignments(maxProtected, blockSizes);
-        return succesProb == 0 ? 0 : 1 - succesProb;
+        double successProb = findLegalAssignments(maxProtected, blockSizes);
+        return successProb == 0 ? 0 : 1 - successProb;
     }
 
     private double findLegalAssignments(int numCandidates, ArrayList<Integer> blockSizes) {
@@ -115,8 +115,10 @@ public class RecursiveNumericFailprobabilityCalculator extends FailprobabilityCa
 
     private double calculateLegalAssignmentsAux(int remainingCandidates, ArrayList<Integer> remainingBlockSizes
             , int currentBlockNumber, int candidatesAssignedSoFar) {
+
         LegalAssignmentKey key = new LegalAssignmentKey(remainingCandidates, remainingBlockSizes
                 , currentBlockNumber, candidatesAssignedSoFar);
+
         if (legalAssignmentCache.get(key) != null) {
             return legalAssignmentCache.get(key);
         } else {
