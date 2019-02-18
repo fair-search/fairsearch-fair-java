@@ -26,8 +26,6 @@ public class RecursiveNumericFailprobabilityCalculator extends FailprobabilityCa
         MTableFailProbPair mid = computeBoundary(k, p, aMid);
 
         while (min.getMassOfMTable() < max.getMassOfMTable() && mid.getFailProb() != alpha) {
-
-
             if (mid.getFailProb() < alpha) {
                 aMin = aMid;
                 min = computeBoundary(k, p, aMin);
