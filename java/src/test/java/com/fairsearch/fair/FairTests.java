@@ -39,7 +39,7 @@ public class FairTests extends LuceneTestCase {
         assertEquals(false, areSame);
     }
 
-    public void testCalculateFailureProbability() {
+    public void testComputeFailureProbability() {
         int n = 20;
         double p = 0.25;
         double alpha = 0.1;
