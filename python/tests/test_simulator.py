@@ -1,6 +1,6 @@
 from fairsearchcore import simulator
 
-def test_fail_probability_calcualtors():
+def _test_fail_probability_calcualtors():
     Ms = [5000, 10000]
     ks = [10, 20, 50, 100, 200]
     ps = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]

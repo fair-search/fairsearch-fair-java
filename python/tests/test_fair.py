@@ -1,7 +1,9 @@
 from fairsearchcore import fair
 from fairsearchcore import simulator
+from fairsearchcore import mtable_generator
 
-def not_test_is_fair():
+
+def test_is_fair():
     k = 20
     p = 0.25
     alpha = 0.1
@@ -24,8 +26,42 @@ def test_create_unadjusted_mtable():
 
     mtable = f.create_unadjusted_mtable()
 
-    assert isinstance(mtable, list)
+    assert mtable == [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3]
 
-    assert len(mtable) == 20
 
-    print(mtable)
+def test_create_adjusted_mtable():
+    k = 20
+    p = 0.25
+    alpha = 0.1
+
+    f = fair.Fair(k, p, alpha)
+
+    mtable = f.create_adjusted_mtable()
+
+    assert mtable == [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2]
+
+
+def test_adjust_alpha():
+    k = 20
+    p = 0.25
+    alpha = 0.1
+
+    f = fair.Fair(k, p, alpha)
+
+    adjusted_alpha = f.adjust_alpha()
+
+    assert alpha != adjusted_alpha
+
+
+def test_calculate_fail_probability():
+    k = 20
+    p = 0.25
+    alpha = 0.1
+
+    f = fair.Fair(k, p, alpha)
+
+    adjusted_alpha = f.create_adjusted_mtable()
+
+    res = f.compute_fail_probability()
+
+    assert alpha != adjusted_alpha

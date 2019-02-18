@@ -45,7 +45,7 @@ class RecursiveNumericFailprobabilityCalculator(FailprobabilityCalculator):
         self.legal_assignment_cache = {}
 
     def adjust_alpha(self):
-        a_min = 0
+        a_min = 0.0000000000000001
         a_max = self.alpha
         a_mid = (a_min + a_max) / 2
 
@@ -68,7 +68,7 @@ class RecursiveNumericFailprobabilityCalculator(FailprobabilityCalculator):
             min_mass = minb.mass_of_mtable()
             mid_mass = midb.mass_of_mtable()
 
-            if max_mass - min_mass == 1 or maxb.alpha - min.__annotations__ <= EPS:
+            if max_mass - min_mass == 1 or maxb.alpha - minb.alpha <= EPS:
                 min_diff = abs(minb.fail_prob - self.alpha)
                 max_diff = abs(maxb.fail_prob - self.alpha)
 
@@ -97,7 +97,7 @@ class RecursiveNumericFailprobabilityCalculator(FailprobabilityCalculator):
         """
         self.aux_mtable = mtable_generator.compute_aux_mtable(mtable)
         max_protected = self.aux_mtable['block'].sum()
-        block_sizes = self.aux_mtable['block'][1:]
+        block_sizes = self.aux_mtable['block'].tolist()[1:]
         success_prob = self._find_legal_assignments(max_protected, block_sizes)
         return 0 if success_prob == 0 else (1 - success_prob)
 
@@ -105,7 +105,7 @@ class RecursiveNumericFailprobabilityCalculator(FailprobabilityCalculator):
         """
         Returns a tuple of (k, p, alpha, fail_prob, mtable)
         """
-        mtable = mtable_generator.MTableGenerator(self.k, self.p, alpha, False).mtable
+        mtable = mtable_generator.MTableGenerator(self.k, self.p, alpha, False)._mtable
         fail_prob = self.calculate_fail_probability(mtable)
         return MTableFailProbPair(self.k, self.p, alpha, fail_prob, mtable)
 
@@ -188,4 +188,4 @@ class MTableFailProbPair:
         self.mtable = mtable
 
     def mass_of_mtable(self):
-        return sum(self.mtable)
+        return self.mtable['m'].sum()

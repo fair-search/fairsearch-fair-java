@@ -13,6 +13,9 @@ from fairsearchcore import fail_prob
 class MTableGenerator:
 
     def __init__(self, k: int, p: float, alpha: float, adjust_alpha: bool):
+        # TODO: CHECK THIS!!!
+        alpha += fail_prob.EPS
+
         # assign parameters
         self.k = k
         self.p = p
@@ -22,23 +25,24 @@ class MTableGenerator:
         if self.adjust_alpha:
             fail_prob_pair = fail_prob.RecursiveNumericFailprobabilityCalculator(k, p, alpha).adjust_alpha()
             self.adjusted_alpha = fail_prob_pair.alpha
-            self.mtable = fail_prob_pair.mtable
+            self._mtable = fail_prob_pair.mtable
         else:
             self.adjusted_alpha = alpha
-            self.mtable = self._compute_mtable()
-
-        self.aux_mtable = self._compute_aux_mtable()
+            self._mtable = self._compute_mtable()
 
     def get_mtable(self):
-        return [int(i) for i in self.mtable.m.tolist()]
+        return [int(i) for i in self._mtable.m.tolist()]
 
     def m(self, k: int):
         if k < 1:
             raise ValueError("Parameter k must be at least 1")
         elif k > self.k:
-            raise ValueError("Parameter k must be at most n")
+            raise ValueError("Parameter k must be at most {0}".format(self.k))
 
-        return stats.binom.ppf(self.alpha, k, self.p)
+        if self.adjust_alpha:
+            return stats.binom.ppf(self.adjusted_alpha, k, self.p)
+        else:
+            return stats.binom.ppf(self.alpha, k, self.p)
 
     def _compute_mtable(self):
         """ Computes a table containing the minimum number of protected elements
@@ -51,13 +55,8 @@ class MTableGenerator:
             mtable.loc[i] = [self.m(i)]
         return mtable
 
-    def _compute_aux_mtable(self):
-        """ Computes an auxiliary table containing the inverse table m[i] and the block sizes
-        """
-        return compute_aux_mtable(self.mtable)
 
-
-def compute_aux_mtable(mtable) -> pd.DataFrame:
+def compute_aux_mtable(mtable: pd.DataFrame) -> pd.DataFrame:
     """
     Stores the inverse of an mTable entry and the size of the block with respect to the inverse
     """

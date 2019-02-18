@@ -3,7 +3,10 @@
 """
 This module serves as a wrapper around the utilities we have created for FA*IR ranking
 """
-from fairsearchcore.mtable_generator import MTableGenerator
+import pandas as pd
+
+from fairsearchcore import mtable_generator
+from fairsearchcore import fail_prob
 
 
 class Fair:
@@ -21,23 +24,6 @@ class Fair:
         self.p = p
         self.alpha = alpha
 
-    def _create_mtable(self, alpha: int, adjust_alpha: bool) -> list:
-        """
-        Creates an mtable by, if you want, pass your own alpha value(overridng the object's one)
-        :param alpha:           The significance level
-        :param adjust_alpha:    Boolean indicating whether the alpha be adjusted or not
-        :return:
-        """
-        # check if passed alpha is ok
-        _validate_alpha(alpha)
-
-        # create the mtable
-        fc = MTableGenerator(self.k, self.p, alpha, adjust_alpha)
-
-        print(fc.get_mtable())
-
-        return fc.get_mtable()
-
     def create_unadjusted_mtable(self):
         """
         Creates an mtable using alpha unadjusted
@@ -52,19 +38,41 @@ class Fair:
         """
         return self._create_mtable(self.alpha, True)
 
+    def _create_mtable(self, alpha: int, adjust_alpha: bool) -> list:
+        """
+        Creates an mtable by, if you want, pass your own alpha value(overridng the object's one)
+        :param alpha:           The significance level
+        :param adjust_alpha:    Boolean indicating whether the alpha be adjusted or not
+        :return:
+        """
+        # check if passed alpha is ok
+        _validate_alpha(alpha)
+
+        # create the mtable
+        fc = mtable_generator.MTableGenerator(self.k, self.p, alpha, adjust_alpha)
+
+        return fc.get_mtable()
+
     def adjust_alpha(self):
         """
         Computes the alpha adjusted for the given set of parameters
         :return:
         """
-        pass
+        rnfpc = fail_prob.RecursiveNumericFailprobabilityCalculator(self.k, self.p, self.alpha)
+        fpp = rnfpc.adjust_alpha()
+        return fpp.alpha
 
-    def compute_fail_probability(self):
+    def compute_fail_probability(self, mtable):
         """
         Computes analytically the probability that a ranking created with the simulator will fail to pass the mtable
         :return:
         """
-        pass
+        if len(mtable) != self.k:
+            raise ValueError("Number of elements k and mtable length must be equal!")
+
+        rnfpc = fail_prob.RecursiveNumericFailprobabilityCalculator(self.k, self.p, self.alpha)
+
+        return rnfpc.calculate_fail_probability(pd.DataFrame.from_dict({"m":mtable}))
 
     def is_fair(self, ranking: list) -> bool:
         """
