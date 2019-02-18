@@ -94,9 +94,9 @@ class RecursiveNumericFailprobabilityCalculator(FailprobabilityCalculator):
         """
         Analytically calculates the fail probability of the mtable
         """
-        self.aux_mtable = mtable_generator.compute_aux_mtable(mtable)
-        max_protected = self.aux_mtable['block'].sum()
-        block_sizes = self.aux_mtable['block'].tolist()[1:]
+        aux_mtable = mtable_generator.compute_aux_mtable(mtable)
+        max_protected = aux_mtable['block'].sum()
+        block_sizes = aux_mtable['block'].tolist()#[1:]
         success_prob = self._find_legal_assignments(max_protected, block_sizes)
         return 0 if success_prob == 0 else (1 - success_prob)
 
