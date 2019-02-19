@@ -72,9 +72,15 @@ def compute_aux_mtable(mtable: pd.DataFrame) -> pd.DataFrame:
             print("Computing m inverse: {:.0f} of {:.0f}".format(position, len(mtable)))
         if mtable.at[position, "m"] == last_m_seen + 1:
             last_m_seen += 1
-            aux_mtable.loc[last_m_seen] = [position, position - last_position]
+            aux_mtable.loc[position] = [position, position - last_position]
             last_position = position
         elif mtable.at[position, "m"] != last_m_seen:
             raise RuntimeError("Inconsistent mtable")
 
     return aux_mtable
+
+
+if __name__ == "__main__":
+    mt = MTableGenerator(10, 0.2, 0.15, False)
+
+    print(mt.mtable_as_dataframe())
