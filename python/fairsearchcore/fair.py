@@ -73,7 +73,12 @@ class Fair:
 
         rnfpc = fail_prob.RecursiveNumericFailprobabilityCalculator(self.k, self.p, self.alpha)
 
-        return rnfpc.calculate_fail_probability(pd.DataFrame.from_dict({"m":mtable}))
+        mtable_df = pd.DataFrame(columns=["m"])
+
+        for i in range(1, len(mtable) + 1):
+            mtable_df.loc[i] = [mtable[i-1]]
+
+        return rnfpc.calculate_fail_probability(mtable_df)
 
     def is_fair(self, ranking: list) -> bool:
         """
