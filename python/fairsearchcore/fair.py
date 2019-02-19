@@ -24,14 +24,14 @@ class Fair:
         self.p = p
         self.alpha = alpha
 
-    def create_unadjusted_mtable(self):
+    def create_unadjusted_mtable(self) -> list:
         """
         Creates an mtable using alpha unadjusted
         :return:
         """
         return self._create_mtable(self.alpha, False)
 
-    def create_adjusted_mtable(self):
+    def create_adjusted_mtable(self) -> list:
         """
         Creates an mtable using alpha adjusted
         :return:
