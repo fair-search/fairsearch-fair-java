@@ -118,13 +118,24 @@ def _validate_basic_parameters(k: int, p: float, alpha: float):
     :param alpha:       The significance level (between 0.01 and 0.15)
     """
     if k < 10 or k > 400:
-        raise ValueError("Total number of elements `k` must between 10 and 400")
+        if k < 2:
+            raise ValueError("Total number of elements `k` should be between 10 and 400")
+        else:
+            warnings.warn("Library has not been tested with values outside this range")
+
     if p < 0.02 or p > 0.98:
-        raise ValueError("The proportion of protected candidates `p` in the top-k ranking must between 0.02 and 0.98")
+        if p < 0 or p > 1:
+            raise ValueError("The proportion of protected candidates `p` in the top-k ranking should be between 0.02 and 0.98")
+        else:
+            warnings.warn("Library has not been tested with values outside this range")
 
     _validate_alpha(alpha)
 
 
 def _validate_alpha(alpha: float):
     if alpha < 0.01 or alpha > 0.15:
-        raise ValueError("The significance level `alpha` must be between 0.01 and 0.15")
+        if alpha < 0.001 or alpha > 0.5:
+            raise ValueError("The significance level `alpha` must be between 0.01 and 0.15")
+        else:
+            warnings.warn("Library has not been tested with values outside this range")
+
