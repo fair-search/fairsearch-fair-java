@@ -1,57 +1,76 @@
-# Fair search core for Java
+# Fair search core for Python
 
-This is the Java library of the core algorithms used to do fair search. 
+This is the Python library with the core algorithms used to do [FA*IR](https://arxiv.org/abs/1706.06368) ranking.  
 
-## Instalation
-
-1. Clone this repository `git clone https://github.com/fair-search/fairsearch-core.git`
-2. Change directory to the directory where you cloned the repository `cd WHERE_ITS_DOWNLOADED/fairsearch-core/java`
-3. Use any IDE to work with the code
-
-## Development
-
-If you want to make your own builds you can do that with the Gradle wrapper:
-- To make a JAR without the external dependencies: 
-    `./gradlew clean jar`
-- To make a JAR with all external dependencies included:
-    `./gradlew clean farJar`
-
-The output will go under `build/libs`.
+## Installation
+To install `fairsearchcore`, simply use `pip` (or `pipenv`):
+```bash
+pip install fairsearcore
+```
+And, that's it!
 
 # Using it in your code
-
-Add the JAR file to the build path of your project and you are *set*. The key methods are exposed throughs the following classes:
-- `com.fairsearch.fair.Fair`
-- `com.fairsearch.fair.Simulator`
-
-The library contains sufficient Java doc for each of the functions.
-
-## Sample usage
+You need to import the package first: 
+```{.sourceCode .python}
+import fairsearchcore as fsc
 ```
-int k = 10; // number of topK elements returned (value must be greater than 10)
-double p = 0.2; // proportion of protected candidates in the topK elements (value must be between 0.02 and 0.98) 
-double alpha = 0.1; // significance level (value must be between 0.01 and 0.15)
+Creating and analyzing mtables:
+```{.sourceCode .python}
+k = 20 # number of topK elements returned (value should be between 10 and 400)
+p = 0.25 # proportion of protected candidates in the topK elements (value should be between 0.02 and 0.98) 
+alpha = 0.1 # significance level (value should be between 0.01 and 0.15)
 
-//create the Fair object 
-Fair fiar = new Fair(k, p, alpha);
+# create the Fair object 
+fair = fsc.Fair(k, p, alpha)
 
-//create an mtable using alpha adjusted
-int[] mtable = fair.createAdjustedMTable();
+# create an mtable using alpha unadjusted
+mtable = fair.create_unadjusted_mtable()
+>> [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3]
 
-//analytically calculate the fail probability
-double analytical = fair.computeFailureProbability(mtable);
- 
-int M = 10000; // number of rankings you want to generate
+# analytically calculate the fail probability
+analytical = fair.compute_fail_probability(mtable)
+>> 0.11517506930977106 
 
-//Generate rankings using the simulator
-TopDocs[] rankings = Simulator.generateRankings(M, k, p);
+# create an mtable using alpha adjusted
+mtable = fair.create_adjusted_mtable()
+>> [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2]
 
-//experimentally calculate the fail probability
-double experimental = Simulator.computeFailureProbability(mtable, rankings);
+# again, analytically calculate the fail probability
+analytical = fair.compute_fail_probability(mtable)
+>> 0.13421772800000065
+
 ```
+Generate random rankings and analyze them:
+```{.sourceCode .python}
+M = 10000 # number of rankings you want to generate (works better with big numbers)
+
+# generate rankings using the simulator (generates M lists of k items) 
+rankings = fsc.generate_rankings(M, k, p)
+>> [[0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],...]
+
+# experimentally calculate the fail probability
+experimental = fsc.compute_fail_probability(mtable, rankings)
+>> 0.1076
+```
+
+The library contains sufficient code documentation for each of the functions.
  
+## Development
 
-# Builds
+1. Clone this repository `git clone https://github.com/fair-search/fairsearch-core.git`
+2. Change directory to the directory where you cloned the repository `cd WHERE_ITS_DOWNLOADED/fairsearch-core/python`
+3. Use any IDE to work with the code
 
-- [JAR with dependncies](https://fair-search.github.io/fairsearch-core/java/fairsearch-core-all-0.1.jar)
-- [JAR without dependencies](https://fair-search.github.io/fairsearch-core/java/fairsearch-core-0.1.jar)
+## Testing
+
+## Credits
+
+The FA*IR algorithm is described on this paper:
+
+* Meike Zehlike, Francesco Bonchi, Carlos Castillo, Sara Hajian, Mohamed Megahed, Ricardo Baeza-Yates: "[FA*IR: A Fair Top-k Ranking Algorithm](https://doi.org/10.1145/3132847.3132938)". Proc. of the 2017 ACM on Conference on Information and Knowledge Management (CIKM).
+
+This code was developed by (Ivan Kitanovski)[http://ivankitanovski.com/] based on the paper. See the [license](https://github.com/fair-search/fairsearch-core/blob/master/python/LICENSE) file for more information.
+
+## See also
+
+See also: [FA*IR plug-in for ElasticSearch](https://github.com/fair-search/fairsearch-elasticsearch-plugin)

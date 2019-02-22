@@ -8,6 +8,6 @@ setup(
     packages=['fairsearchcore'],
     author='Ivan Kitanovski',
     author_email='ivan.kitanovski@gmail.com',
-    keywords=['search','fairness'],
+    keywords=['search','fairness', 'fa*ir', 'ranking', 'reranking'],
     url='https://github.com/fair-search/fairsearch-core',
 )

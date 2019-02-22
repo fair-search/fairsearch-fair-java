@@ -5,7 +5,7 @@
 Fair search core for Python
 ---------------------------------------
 
-This is the Python library with the core algorithms used to do fair search.
+This is the Python library with the core algorithms used to do FA*IR ranking.
 
 
 For details on support methods - see `fairsearchcore.fair` and `fairsearchcore.simulator`. Full documentation

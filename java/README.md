@@ -28,9 +28,9 @@ The library contains sufficient Java doc for each of the functions.
 
 ## Sample usage
 ```
-int k = 10; // number of topK elements returned (value must be greater than 10)
-double p = 0.2; // proportion of protected candidates in the topK elements (value must be between 0.02 and 0.98) 
-double alpha = 0.1; // significance level (value must be between 0.01 and 0.15)
+int k = 10; // number of topK elements returned (value should be between 10 and 400)
+double p = 0.2; // proportion of protected candidates in the topK elements (value shuld be between 0.02 and 0.98) 
+double alpha = 0.1; // significance level (value should be between 0.01 and 0.15)
 
 //create the Fair object 
 Fair fiar = new Fair(k, p, alpha);
@@ -53,5 +53,5 @@ double experimental = Simulator.computeFailureProbability(mtable, rankings);
 
 # Builds
 
-- [JAR without dependencies](https://fair-search.github.io/fairsearch-core/java/fairsearch-core-0.1.jar)
 - [JAR with dependncies](https://fair-search.github.io/fairsearch-core/java/fairsearch-core-all-0.1.jar)
+- [JAR without dependencies](https://fair-search.github.io/fairsearch-core/java/fairsearch-core-0.1.jar)

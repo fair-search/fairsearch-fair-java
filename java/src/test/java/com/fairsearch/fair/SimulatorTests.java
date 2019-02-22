@@ -46,8 +46,6 @@ public class SimulatorTests extends LuceneTestCase {
 
         double allowedOffset = 0.02; // we tolerate an absolute difference in probability of 0.02
 
-//        PrintWriter writer = new PrintWriter("D:\\tmp\\fair-tests-2.tsv");
-//        writer.println(String.format("passed\tdifference\tk\tp\talpha\talpha_adjusted\tanalytical\texperimental\tM"));
         for(int M: Ms) {
             for(int k: ks) {
                 for(double p : ps) {
@@ -64,7 +62,6 @@ public class SimulatorTests extends LuceneTestCase {
 //                                actualOffset <= allowedOffset || (analytical == experimental), actualOffset,
 //                                k, p, alpha, alpha_adujsted,
 //                                analytical, experimental, M));
-                        //add this just so the tests passes, but we need to see why it's failing
                         assertTrue(actualOffset <= allowedOffset);
                     }
                 }
