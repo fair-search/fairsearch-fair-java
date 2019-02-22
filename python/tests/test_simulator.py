@@ -1,10 +1,32 @@
+import pytest
+
 from fairsearchcore import simulator
-from fairsearchcore import fail_prob
 from fairsearchcore import fair
 
+
+@pytest.mark.parametrize("M, k, p, result",(
+                         (100, 10, 0.25, 100),
+                         (1000, 10, 0.2, 1000),
+                         (5000, 30, 0.5, 5000),
+                         (10000, 20, 0.3, 10000)))
+def test_generate_rankings(M, k, p, result):
+    allowed_offset = 0.02 # we tolerate an absolute difference in probability of 0.02
+
+    # generate the rankings
+    rankings = simulator.generate_rankings(M, k, p)
+
+    # check if the size is right
+    assert len(rankings) == result
+
+    # check if the number of protected elements is right
+    total = M * k
+    protected = sum([sum(r) for r in rankings])
+    assert abs((protected * 1.0 / total) - p) < allowed_offset
+
+
 def test_fail_probability_calcualtors():
-    Ms = [1000] #, 10000]
-    ks = [10] #, 20, 50, 100, 200]
+    Ms = [1000, 10000]
+    ks = [10, 20, 50, 100, 200]
     ps = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
     alphas = [0.01, 0.05, 0.1, 0.15]
 
@@ -26,38 +48,3 @@ def test_fail_probability_calcualtors():
                     analytical = f.compute_fail_probability(mtable)
 
                     print(abs(experimental - analytical) < allowed_offset)
-
-
-"""
-int[] Ms = {5000, 10000};
-        int[] ks = {10, 20, 50, 100, 200};
-        double[] ps = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9};
-        double[] alphas = {0.01, 0.05, 0.1, 0.15};
-
-        double allowedOffset = 0.02; // we tolerate an absolute difference in probability of 0.02
-
-//        PrintWriter writer = new PrintWriter("D:\\tmp\\fair-tests-2.tsv");
-//        writer.println(String.format("passed\tdifference\tk\tp\talpha\talpha_adjusted\tanalytical\texperimental\tM"));
-        for(int M: Ms) {
-            for(int k: ks) {
-                for(double p : ps) {
-                    for(double alpha : alphas) {
-                        Fair fair = new Fair(k, p, alpha);
-                        TopDocs[] rankings = Simulator.generateRankings(M, k, p);
-                        double alpha_adujsted = fair.adjustAlpha();
-                        int[] mtable = fair.createAdjustedMTable();
-                        double experimental = Simulator.computeFailureProbability(mtable, rankings);
-                        double analytical = fair.computeFailureProbability(mtable);
-                        double actualOffset = Math.abs(analytical - experimental);
-//                        if(actualErrorRate <= maximumErrorRate)
-//                        writer.println(String.format("%b\t%.05f\t%d\t%.05f\t%.05f\t%.05f\t%.05f\t%.05f\t%d",
-//                                actualOffset <= allowedOffset || (analytical == experimental), actualOffset,
-//                                k, p, alpha, alpha_adujsted,
-//                                analytical, experimental, M));
-                        //add this just so the tests passes, but we need to see why it's failing
-                        assertTrue(actualOffset <= allowedOffset);
-                    }
-                }
-            }
-        }
-        """

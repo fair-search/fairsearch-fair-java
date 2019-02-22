@@ -13,9 +13,6 @@ from fairsearchcore import fail_prob
 class MTableGenerator:
 
     def __init__(self, k: int, p: float, alpha: float, adjust_alpha: bool):
-        # TODO: CHECK THIS!!!
-        # alpha += fail_prob.EPS
-
         # assign parameters
         self.k = k
         self.p = p

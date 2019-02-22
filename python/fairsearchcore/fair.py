@@ -4,6 +4,7 @@
 This module serves as a wrapper around the utilities we have created for FA*IR ranking
 """
 import pandas as pd
+import warnings
 
 from fairsearchcore import mtable_generator
 from fairsearchcore import fail_prob
@@ -75,6 +76,7 @@ class Fair:
 
         mtable_df = pd.DataFrame(columns=["m"])
 
+        # transform the list into an pd.DataFrame
         for i in range(1, len(mtable) + 1):
             mtable_df.loc[i] = [mtable[i-1]]
 
@@ -100,7 +102,7 @@ def check_ranking(ranking:list, mtable: list) -> bool:
 
     # if the mtable has a different number elements than there are in the top docs return false
     if len(ranking) != len(mtable):
-        raise ValueError("Number of documents in ranking and mtable length are not the same!")
+        raise ValueError("Number of documents in ranking and mtable length must be equal!")
 
     # check number of protected element at each rank
     for i, element in enumerate(ranking):
@@ -125,7 +127,8 @@ def _validate_basic_parameters(k: int, p: float, alpha: float):
 
     if p < 0.02 or p > 0.98:
         if p < 0 or p > 1:
-            raise ValueError("The proportion of protected candidates `p` in the top-k ranking should be between 0.02 and 0.98")
+            raise ValueError("The proportion of protected candidates `p` in the top-k ranking should be between "
+                             "0.02 and 0.98")
         else:
             warnings.warn("Library has not been tested with values outside this range")
 
