@@ -5,8 +5,6 @@ import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.lucene.search.TopDocs;
 
 import java.util.Arrays;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 /**
  * This class serves as a wrapper for simulator functionalities
