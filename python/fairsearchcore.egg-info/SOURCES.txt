@@ -1,8 +1,0 @@
-README.rst
-setup.py
-fairsearchcore/__init__.py
-fairsearchcore/fair.py
-fairsearchcore.egg-info/PKG-INFO
-fairsearchcore.egg-info/SOURCES.txt
-fairsearchcore.egg-info/dependency_links.txt
-fairsearchcore.egg-info/top_level.txt

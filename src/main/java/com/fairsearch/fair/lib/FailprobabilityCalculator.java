@@ -23,6 +23,21 @@ public abstract class FailprobabilityCalculator {
         this.pmfCache = new HashMap<>();
     }
 
+    public static void main(String[] args) {
+        BinomialDistribution binomialDistribution = new BinomialDistribution(9, 0.2);
+
+        double sum = 0;
+        for(int i=1; i<9; i++) {
+            double probability = binomialDistribution.probability(i);
+            System.out.println(probability);
+            sum += probability;
+        }
+        System.out.println("******");
+        System.out.println(sum);
+        System.out.println("******");
+        System.out.println(1 - sum);
+    }
+
     public abstract double calculateFailprobability(int[] mtable);
 
     double getFromPmfCache(int trials, int successes){

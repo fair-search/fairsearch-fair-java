@@ -10,13 +10,17 @@ import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * This class serves as a wrapper around the utilities we have created for FA*IR ranking
  */
 public class Fair {
+
+    private static final Logger LOGGER = Logger.getLogger(Fair.class.getName());
 
     private int k; //the total number of elements
     private double p; //the proportion of protected candidates in the top-k ranking
@@ -59,7 +63,7 @@ public class Fair {
      * @param adjustAlpha Boolean indicating whether the alpha be adjusted or not
      * @return            The generated mtable (int[])
      */
-    public int[] createMTable(double alpha, boolean adjustAlpha) {
+    private int[] createMTable(double alpha, boolean adjustAlpha) {
         //check if passed alpha is ok
         validateAlpha(alpha);
 
@@ -128,8 +132,25 @@ public class Fair {
         return checkRankingMTable(docs, this.createAdjustedMTable());
     }
 
-    public TopDocs rerank(List<ScoreDoc> nonProtectedElements, List<ScoreDoc> protectedElements) {
-        return  this.fairTopK.fairTopK(nonProtectedElements, protectedElements, this.k, this.p, this.alpha);
+    /**
+     * Applies FA*IR re-ranking to the input ranking with an adjusted mtable
+     * @param docs      The ranking to be re-ranked
+     * @return
+     */
+    public TopDocs reRank(TopDocs docs) {
+        List<ScoreDoc> protectedElements = new ArrayList<ScoreDoc>();
+        List<ScoreDoc> nonProtectedElements =  new ArrayList<ScoreDoc>();
+
+        for(int i=0; i<docs.scoreDocs.length; i++) {
+            FairScoreDoc current = (FairScoreDoc)docs.scoreDocs[i];
+            if(current.isProtected) {
+                protectedElements.add(current);
+            } else {
+                nonProtectedElements.add(current);
+            }
+        }
+
+        return this.fairTopK.fairTopK(nonProtectedElements, protectedElements, this.k, this.p, this.alpha);
     }
 
     /**
@@ -139,18 +160,31 @@ public class Fair {
      * @param alpha       The significance level (between 0.01 and 0.15)
      */
     private static void validateBasicParameters(int k, double p, double alpha) {
-        if(k < 10) {
-            throw new ValueException("Total number of elements `k` must be above or equal to 10");
+        if(k < 10 || k > 400) {
+            if(k < 2) {
+                throw new ValueException("Total number of elements `k` should be between 10 and 400");
+            } else {
+                LOGGER.warning("Library has not been tested with values outside this range");
+            }
         }
         if(p < 0.02 || p > 0.98) {
-            throw new ValueException("The proportion of protected candidates `p` in the top-k ranking must between 0.02 and 0.98");
+            if(p < 0 || p > 1) {
+                throw new ValueException("The proportion of protected candidates `p` in the top-k ranking should " +
+                        "be between 0.02 and 0.98");
+            } else {
+                LOGGER.warning("Library has not been tested with values outside this range");
+            }
         }
         validateAlpha(alpha);
     }
 
     private static void validateAlpha(double alpha) {
         if(alpha < 0.01 || alpha > 0.15) {
-            throw new ValueException("The significance level `alpha` must be between 0.01 and 0.15");
+            if(alpha < 0.001 || alpha > 0.5) {
+                throw new ValueException("The significance level `alpha` must be between 0.01 and 0.15");
+            } else {
+                LOGGER.warning("Library has not been tested with values outside this range");
+            }
         }
     }
 }

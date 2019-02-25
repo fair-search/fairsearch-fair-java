@@ -52,22 +52,14 @@ public class SimulatorTests extends LuceneTestCase {
                     for(double alpha : alphas) {
                         Fair fair = new Fair(k, p, alpha);
                         TopDocs[] rankings = Simulator.generateRankings(M, k, p);
-                        double alpha_adujsted = fair.adjustAlpha();
                         int[] mtable = fair.createAdjustedMTable();
                         double experimental = Simulator.computeFailureProbability(mtable, rankings);
                         double analytical = fair.computeFailureProbability(mtable);
                         double actualOffset = Math.abs(analytical - experimental);
-//                        if(actualErrorRate <= maximumErrorRate)
-//                        writer.println(String.format("%b\t%.05f\t%d\t%.05f\t%.05f\t%.05f\t%.05f\t%.05f\t%d",
-//                                actualOffset <= allowedOffset || (analytical == experimental), actualOffset,
-//                                k, p, alpha, alpha_adujsted,
-//                                analytical, experimental, M));
                         assertTrue(actualOffset <= allowedOffset);
                     }
                 }
             }
         }
-
-//        writer.close();
     }
 }
