@@ -22,39 +22,61 @@ Creating and analyzing mtables:
 package com.fairsearch.examples;
 
 import com.fairsearch.fair.Fair;
+import com.fairsearch.fair.Simulator;
 
 public class HelloWorld {
     public static void main(String[] args) {
         // number of topK elements returned (value should be between 10 and 400)
         int k = 10; 
         // proportion of protected candidates in the topK elements (value shuld be between 0.02 and 0.98)
-        double p = 0.2;  
+        double p = 0.25;  
         // significance level (value should be between 0.01 and 0.15)
-        double alpha = 0.1; 
+        double alpha = 0.15; 
         
         //create the Fair object 
         Fair fiar = new Fair(k, p, alpha);
+        
+        //create an mtable using alpha unadjusted
+        int[] unadjustedMTable = fair.createUnadjustedMTable();
+        //unadjustedMTable -> [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3]
+        
+        //analytically calculate the fail probability
+        analytical = fair.computeFailureProbability(unadjustedMTable);
+        //analytical -> 0.14688718869911077
+        
+        //create an mtable using alpha adjusted
+        int[] adjustedMTable = fair.createAdjustedMTable();
+        //adjustedMTable -> [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2]
+        
+        //analytically calculate the fail probability
+        analytical = fair.computeFailureProbability(adjustedMTable);
+        //analytical -> 0.10515247355215218
     }
 }
 ```
-
-
-
-//create an mtable using alpha adjusted
-int[] mtable = fair.createAdjustedMTable();
-
-//analytically calculate the fail probability
-double analytical = fair.computeFailureProbability(mtable);
- 
-int M = 10000; // number of rankings you want to generate
-
-//Generate rankings using the simulator
+Generate random rankings and analyze them:
+```java
+//set number of rankings you want to generate
+int M = 10000; 
+        
+//generate rankings using the simulator
 TopDocs[] rankings = Simulator.generateRankings(M, k, p);
 
 //experimentally calculate the fail probability
 double experimental = Simulator.computeFailureProbability(mtable, rankings);
+//experimental -> 0.1054
+```
+Apply a fair re-ranking to a given ranking:
+```java
+//import the FairScoreDoc class at the top
+import com.fairsearch.fair.utils.FairScoreDoc;
 
+//let's manually create an unfair ranking (False -> unprotexted, True -> protected)
+TopDocs unfairRanking = null;
 
+//now re-rank the unfair ranking  
+TopDocs reRanked = fair.reRank(unfairRanking);
+```
 ## Development
 
 If you want to make your own builds you can do that with the Gradle wrapper:

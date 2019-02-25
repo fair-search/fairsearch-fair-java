@@ -57,8 +57,8 @@ publishing {
             from components.java
         }
         maven(MavenPublication) {
-            groupId 'com.fairserach'
-            artifactId 'fairsearch.core'
+            groupId 'com.fair.search'
+            artifactId 'core.java'
             version '0.1'
 
             from components.java
@@ -68,14 +68,14 @@ publishing {
 
 modifyPom {
     project {
-        name 'fairsearch core'
-        description 'Fairsearch core algorithms'
-        url 'https://github.com/fair-search/fairsearch-core'
+        name 'Fair Search Core'
+        description 'Fairsearch core algorithms for Java'
+        url 'https://github.com/fair-search/fairsearchcore-java'
         inceptionYear '2018'
         scm {
-            url 'https://github.com/fair-search/fairsearch-core'
-            connection 'scm:https://github.com/fair-search/fairsearch-core.git'
-            developerConnection 'scm:git@github.com:fair-search/fairsearch-core.git'
+            url 'https://github.com/fair-search/fairsearchcore-java'
+            connection 'scm:https://github.com/fair-search/fairsearchcore-java.git'
+            developerConnection 'scm:git@github.com:fair-search/fairsearchcore-java.git'
         }
         licenses {
             license {
@@ -86,9 +86,9 @@ modifyPom {
         }
         developers {
             developer {
-                id 'purbon'
-                name 'Pere Urbon'
-                email 'pere.urbon@acm.org'
+                id 'ivan.kitanovski'
+                name 'Ivan Kitanovski'
+                email 'ivan.kitanovski@gmail.com'
             }
         }
     }

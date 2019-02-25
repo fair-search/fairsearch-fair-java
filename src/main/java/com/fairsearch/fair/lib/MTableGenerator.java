@@ -27,7 +27,7 @@ public class MTableGenerator {
             this.adjustAlpha = adjustAlpha;
             this.alpha = alpha;
             if (adjustAlpha) {
-                RecursiveNumericFailprobabilityCalculator adjuster = new RecursiveNumericFailprobabilityCalculator(n, p, alpha);
+                RecursiveNumericFailProbabilityCalculator adjuster = new RecursiveNumericFailProbabilityCalculator(n, p, alpha);
                 MTableFailProbPair failProbPair = adjuster.adjustAlpha();
                 this.adjustedAlpha = failProbPair.getAlpha();
                 this.mTable = failProbPair.getmTable();

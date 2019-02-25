@@ -1,10 +1,10 @@
 package com.fairsearch.fair;
 
-import com.fairsearch.fair.lib.FailprobabilityCalculator;
+import com.fairsearch.fair.lib.FailProbabilityCalculator;
 import com.fairsearch.fair.lib.FairTopK;
 import com.fairsearch.fair.lib.MTableFailProbPair;
 import com.fairsearch.fair.lib.MTableGenerator;
-import com.fairsearch.fair.lib.RecursiveNumericFailprobabilityCalculator;
+import com.fairsearch.fair.lib.RecursiveNumericFailProbabilityCalculator;
 import com.fairsearch.fair.utils.FairScoreDoc;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import org.apache.lucene.search.ScoreDoc;
@@ -77,7 +77,7 @@ public class Fair {
      * @return            The adjusted alpha
      */
     public double adjustAlpha() {
-        RecursiveNumericFailprobabilityCalculator adjuster = new RecursiveNumericFailprobabilityCalculator(this.k, this.p, this.alpha);
+        RecursiveNumericFailProbabilityCalculator adjuster = new RecursiveNumericFailProbabilityCalculator(this.k, this.p, this.alpha);
         MTableFailProbPair failProbPair = adjuster.adjustAlpha();
         return failProbPair.getAlpha();
     }
@@ -91,14 +91,14 @@ public class Fair {
             throw new ValueException("Number of elements k and (int[]) mtable length must be equal!");
         }
 
-        FailprobabilityCalculator calculator = new RecursiveNumericFailprobabilityCalculator(this.k, this.p, this.alpha);
+        FailProbabilityCalculator calculator = new RecursiveNumericFailProbabilityCalculator(this.k, this.p, this.alpha);
 
         // the internal mechanics of the MTableGenerator works with k+1 table length
         // so, we must create a longer interim mtable with a 0th position
         int[] interimMTable = new int[mtable.length + 1];
         System.arraycopy(mtable, 0, interimMTable, 1, mtable.length);
 
-        return calculator.calculateFailprobability(interimMTable);
+        return calculator.calculateFailProbability(interimMTable);
     }
 
     /**

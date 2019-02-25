@@ -22,7 +22,7 @@ public class SimulatorTests extends LuceneTestCase {
     }
 
     public void testComputeFailureProbability() {
-        int M = 5;
+        int M = 10000 ;
         int k = 20;
         double p = 0.25;
         double alpha = 0.1;
@@ -30,9 +30,11 @@ public class SimulatorTests extends LuceneTestCase {
 
         TopDocs[] rankings = Simulator.generateRankings(M, k, p);
 
-        int[] mtable = fair.createUnadjustedMTable();
+        int[] mtable = fair.createAdjustedMTable();
 
         double ratio = Simulator.computeFailureProbability(mtable, rankings);
+
+        System.out.println(ratio);
 
         assertTrue(ratio >= 0 && ratio <= 0.5);
     }

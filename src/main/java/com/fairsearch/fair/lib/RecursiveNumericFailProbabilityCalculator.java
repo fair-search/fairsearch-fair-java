@@ -5,13 +5,13 @@ import com.fairsearch.fair.utils.LegalAssignmentKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RecursiveNumericFailprobabilityCalculator extends FailprobabilityCalculator {
+public class RecursiveNumericFailProbabilityCalculator extends FailProbabilityCalculator {
 
     private static final double EPS = 0.0000000000000001;
 
     private HashMap<LegalAssignmentKey, Double> legalAssignmentCache = new HashMap<>();
 
-    public RecursiveNumericFailprobabilityCalculator(int k, double p, double alpha) {
+    public RecursiveNumericFailProbabilityCalculator(int k, double p, double alpha) {
         super(k, p, alpha);
     }
 
@@ -67,12 +67,12 @@ public class RecursiveNumericFailprobabilityCalculator extends FailprobabilityCa
 
     private MTableFailProbPair computeBoundary(int k, double p, double alpha) {
         int[] mTable = new MTableGenerator(k, p, alpha, false).getMTable();
-        double failProb = calculateFailprobability(mTable);
+        double failProb = calculateFailProbability(mTable);
         return new MTableFailProbPair(k, p, alpha, failProb, mTable);
     }
 
     @Override
-    public double calculateFailprobability(int[] mtable) {
+    public double calculateFailProbability(int[] mtable) {
         this.auxMTable = MTableGenerator.computeAuxTMTable(mtable);
         int maxProtected = auxMTable.getSumOf("block");
         ArrayList<Integer> blockSizes = auxMTable.getColumn("block");

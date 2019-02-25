@@ -7,7 +7,7 @@ import org.apache.commons.math3.distribution.BinomialDistribution;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class FailprobabilityCalculator {
+public abstract class FailProbabilityCalculator {
 
     int k;
     double p;
@@ -15,7 +15,7 @@ public abstract class FailprobabilityCalculator {
     DataFrame auxMTable;
     HashMap<BinomDistKey, Double> pmfCache;
 
-    public FailprobabilityCalculator(int k, double p, double alpha) {
+    public FailProbabilityCalculator(int k, double p, double alpha) {
 
         this.k = k;
         this.p = p;
@@ -38,7 +38,7 @@ public abstract class FailprobabilityCalculator {
         System.out.println(1 - sum);
     }
 
-    public abstract double calculateFailprobability(int[] mtable);
+    public abstract double calculateFailProbability(int[] mtable);
 
     double getFromPmfCache(int trials, int successes){
         BinomDistKey key = new BinomDistKey(trials,successes);

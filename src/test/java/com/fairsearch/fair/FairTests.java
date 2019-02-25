@@ -49,7 +49,15 @@ public class FairTests extends LuceneTestCase {
 
         int[] adjustedMTable = fair.createAdjustedMTable();
 
+        Arrays.stream(adjustedMTable).forEach(x -> System.out.print(x + " "));
+
         double res = fair.computeFailureProbability(adjustedMTable);
+
+        System.out.println(res);
+
+        System.out.println(fair.computeFailureProbability(fair.createUnadjustedMTable()));
+
+        Arrays.stream(fair.createUnadjustedMTable()).forEach(x -> System.out.print(x + " "));
 
         assertEquals(true, res > 0 && res < 1);
     }
