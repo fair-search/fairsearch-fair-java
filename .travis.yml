@@ -4,6 +4,7 @@ jdk:
   - oraclejdk8
 
 script:
- - ./gradlew clean fatJar
+ - ./gradlew clean check
 
-after_success: "sbt coveralls"
+after_success:
+  - sbt coveralls
