@@ -1,5 +1,8 @@
 # Fair search core for Java
 
+[![image](https://api.travis-ci.org/fair-search/fairsearchcore-java.svg?branch=master)](https://travis-ci.org/fair-search/fairsearchcore-java)
+[![image](https://img.shields.io/pypi/l/fairsearchcore.svg)](https://pypi.org/project/fairsearchcore/)
+
 This is the Java library of the core algorithms used to do fair search. 
 
 ## Installation

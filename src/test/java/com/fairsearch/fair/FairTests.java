@@ -4,7 +4,6 @@ import com.fairsearch.fair.utils.FairScoreDoc;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.util.LuceneTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -14,10 +13,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static junitparams.JUnitParamsRunner.$;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 @RunWith(JUnitParamsRunner.class)
 public class FairTests {
