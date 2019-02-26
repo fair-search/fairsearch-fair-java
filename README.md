@@ -77,6 +77,8 @@ TopDocs unfairRanking = null;
 //now re-rank the unfair ranking  
 TopDocs reRanked = fair.reRank(unfairRanking);
 ```
+*Note*: The numbers shown here may differ slightly from run to run as there is randomness factor involved.
+
 ## Development
 
 If you want to make your own builds you can do that with the Gradle wrapper:
@@ -98,7 +100,7 @@ The FA*IR algorithm is described on this paper:
 
 * Meike Zehlike, Francesco Bonchi, Carlos Castillo, Sara Hajian, Mohamed Megahed, Ricardo Baeza-Yates: "[FA*IR: A Fair Top-k Ranking Algorithm](https://doi.org/10.1145/3132847.3132938)". Proc. of the 2017 ACM on Conference on Information and Knowledge Management (CIKM).
 
-This code was developed by [Ivan Kitanovski](http://ivankitanovski.com/) and Tom Suhr based on the paper. See the [license](https://github.com/fair-search/fairsearch-core/blob/master/python/LICENSE) file for more information.
+This code was developed by [Ivan Kitanovski](http://ivankitanovski.com/) and Tom Suhr based on the paper. See the [license](https://github.com/fair-search/fairsearchcore-java/blob/master/LICENSE) file for more information.
 
 ## See also
 
