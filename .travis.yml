@@ -7,4 +7,4 @@ script:
  - ./gradlew clean check
 
 after_success:
-  - ./gradlew coveralls
+  - CI=true TRAVIS=true coveralls --verbose

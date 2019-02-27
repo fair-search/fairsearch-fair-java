@@ -107,8 +107,8 @@ the tests, it can happen that (rarely) they fail sometimes.
 
 ## Builds by us
 
-- [JAR with dependncies](https://fair-search.github.io/fairsearch-core/java/fairsearch-core-all-0.1.jar)
-- [JAR without dependencies](https://fair-search.github.io/fairsearch-core/java/fairsearch-core-0.1.jar)
+- [JAR with dependncies](https://fair-search.github.io/fairsearch-core/java/fairsearch-core-all-1.0.1.jar)
+- [JAR without dependencies](https://fair-search.github.io/fairsearch-core/java/fairsearch-core-1.0.1.jar)
 
 ## Credits
 
