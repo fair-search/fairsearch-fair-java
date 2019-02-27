@@ -51,8 +51,8 @@ public class MTableGenerator {
 
     /**
      * Stores the inverse of an mTable entry and the size of the block with respect to the inverse
-     *
-     * @return A Dataframe with the columns "inv" and "block" for the values of the inverse mTable and blocksize
+     * @param mTable        An mtable for which the aux is calculated
+     * @return              A Dataframe with the columns "inv" and "block" for the values of the inverse mTable and blocksize
      */
     public static DataFrame computeAuxTMTable(int[] mTable) {
         DataFrame table = new DataFrame("inv", "block");
@@ -120,7 +120,7 @@ public class MTableGenerator {
     /**
      * The function returns the generated mtable. The mtable contains k+1 elements due to the fact the original paper
      * assumed a 0th position, which later not used for the rankings. So, when using the mtable, ignore the 0th element.
-     * @return
+     * @return          The generated mtable
      */
     public int[] getMTable() {
         if (this.mTable == null) {

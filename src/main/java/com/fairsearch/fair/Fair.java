@@ -84,6 +84,7 @@ public class Fair {
 
     /**
      * Computes analytically the probability that a ranking created with the simulator will fail to pass the mtable
+     * @param mtable      The mtable against to compute the fail probability
      * @return            The fail probability
      */
     public double computeFailureProbability(int[] mtable) {
@@ -135,7 +136,7 @@ public class Fair {
     /**
      * Applies FA*IR re-ranking to the input ranking with an adjusted mtable
      * @param docs      The ranking to be re-ranked
-     * @return
+     * @return          A new (fair) ranking
      */
     public TopDocs reRank(TopDocs docs) {
         List<ScoreDoc> protectedElements = new ArrayList<ScoreDoc>();
