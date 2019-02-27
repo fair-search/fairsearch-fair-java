@@ -86,11 +86,24 @@ TopDocs reRanked = fair.reRank(unfairRanking);
 
 If you want to make your own builds you can do that with the Gradle wrapper:
 - To make a JAR without the external dependencies: 
-    `./gradlew clean jar`
+```
+./gradlew clean jar
+```
 - To make a JAR with all external dependencies included:
-    `./gradlew clean farJar`
+```
+./gradlew clean farJar
+```
 
 The output will go under `build/libs`.
+
+## Testing
+
+Just run:
+```
+./gradlew clean check
+```
+*Note*: The simulator tests take a bit *longer* time to execute. Also, because there is a *randomness* factor involved in 
+the tests, it can happen that (rarely) they fail sometimes.  
 
 ## Builds by us
 
