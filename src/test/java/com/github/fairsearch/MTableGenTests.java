@@ -68,14 +68,6 @@ public class MTableGenTests extends LuceneTestCase {
         }
     }
 
-    public void testInitializeWithInvalidAlphaValueTest() {
-        try {
-            MTableGenerator gen = new MTableGenerator(800, 0.1, 1, true);
-            fail("Should throw IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-        }
-    }
-
     private boolean arraysAreEqual(int[] arrayOne, int[] arrayTwo) {
         boolean array1MatchesArray2 = false;
         if (arrayOne.length == arrayTwo.length) {
