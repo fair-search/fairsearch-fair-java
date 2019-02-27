@@ -13,7 +13,7 @@ buildscript {
     }
 }
 
-group 'com.fairsearch'
+group 'com.github.fair-search'
 version '1.0.1'
 
 apply plugin: 'java'
@@ -103,6 +103,6 @@ extraArchive {
 }
 nexus {
     sign = true
-    repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+    repositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+    snapshotRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
 }

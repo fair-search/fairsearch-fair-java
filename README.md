@@ -14,18 +14,18 @@ This is the Java library of the core algorithms used to do fair search.
 ## Using it in your code
 
 Add the JAR file to the build path of your project and you are *set*. The key methods are contained in the following classes:
-- `com.fairsearch.fair.Fair`
-- `com.fairsearch.fair.Simulator`
+- `com.github.fair-search.Fair`
+- `com.github.fair-search.Simulator`
 
 The library contains sufficient Java doc for each of the functions.
 
 ## Sample usage
 Creating and analyzing mtables:
 ```java
-package com.fairsearch.examples;
+package com.github.fairsearch.examples;
 
-import com.fairsearch.fair.Fair;
-import com.fairsearch.fair.Simulator;
+import com.github.fairsearch.Fair;
+import com.github.fairsearch.Simulator;
 
 public class HelloWorld {
     public static void main(String[] args) {
@@ -78,7 +78,9 @@ double alphaAdjusted = fair.adjustAlpha()ч
 Apply a fair re-ranking to a given ranking:
 ```java
 //import the FairScoreDoc class at the top
-import com.fairsearch.fair.utils.FairScoreDoc;
+import com.github.fairsearch.FairScoreDoc;
+//also, import Lucene's TopDocs class
+import org.apache.lucene.search.TopDocs;
 
 //let's manually create an unfair ranking (False -> unprotexted, True -> protected)
 TopDocs unfairRanking = null;
