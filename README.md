@@ -30,11 +30,11 @@ import com.fairsearch.fair.Simulator;
 public class HelloWorld {
     public static void main(String[] args) {
         // number of topK elements returned (value should be between 10 and 400)
-        int k = 10; 
+        int k = 20; 
         // proportion of protected candidates in the topK elements (value shuld be between 0.02 and 0.98)
         double p = 0.25;  
         // significance level (value should be between 0.01 and 0.15)
-        double alpha = 0.15; 
+        double alpha = 0.1; 
         
         //create the Fair object 
         Fair fiar = new Fair(k, p, alpha);
@@ -68,6 +68,12 @@ TopDocs[] rankings = Simulator.generateRankings(M, k, p);
 //experimentally calculate the fail probability
 double experimental = Simulator.computeFailureProbability(mtable, rankings);
 //experimental -> 0.1054
+```
+Let's get the alpha adjusted (used to create an adjusted mtable)
+```java
+//get alpha adjusted
+double alphaAdjusted = fair.adjustAlpha()ч
+//alphaAdjusted -> 0.07812500000000001
 ```
 Apply a fair re-ranking to a given ranking:
 ```java

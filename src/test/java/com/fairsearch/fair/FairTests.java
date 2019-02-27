@@ -4,6 +4,7 @@ import com.fairsearch.fair.utils.FairScoreDoc;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.util.LuceneTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -109,7 +110,7 @@ public class FairTests {
     }
 
     @Test
-    @Parameters({"10, 0.2, 0.15, 0.15",
+    @Parameters({"10, 0.25, 0.15, 0.15",
                  "20, 0.25, 0.1, 0.07812500000000001",
                  "30, 0.3, 0.15, 0.075"})
     public void testAdjustAlpha(int k, double p, double alpha, double expected) {
