@@ -72,7 +72,7 @@ publishing {
 modifyPom {
     project {
         name 'Fair Search Core'
-        description 'Fairsearch core algorithms for Java'
+        description 'Fair search core algorithms for Java'
         url 'https://github.com/fair-search/fairsearchcore-java'
         inceptionYear '2018'
         scm {
