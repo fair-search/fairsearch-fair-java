@@ -1,6 +1,6 @@
-package com.fairsearch.fair;
+package com.github.fairsearch;
 
-import com.fairsearch.fair.lib.MTableGenerator;
+import com.github.fairsearch.lib.MTableGenerator;
 import org.apache.lucene.util.LuceneTestCase;
 import org.junit.Before;
 
@@ -70,7 +70,7 @@ public class MTableGenTests extends LuceneTestCase {
 
     public void testInitializeWithInvalidAlphaValueTest() {
         try {
-            MTableGenerator gen = new MTableGenerator(800, 0.1, 0.5, true);
+            MTableGenerator gen = new MTableGenerator(800, 0.1, 1, true);
             fail("Should throw IllegalArgumentException");
         } catch (IllegalArgumentException e) {
         }

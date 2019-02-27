@@ -1,6 +1,6 @@
-package com.fairsearch.fair;
+package com.github.fairsearch;
 
-import com.fairsearch.fair.utils.FairScoreDoc;
+import com.github.fairsearch.utils.FairScoreDoc;
 import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.lucene.search.TopDocs;
 

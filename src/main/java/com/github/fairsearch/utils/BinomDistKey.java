@@ -1,4 +1,4 @@
-package com.fairsearch.fair.utils;
+package com.github.fairsearch.utils;
 
 public class BinomDistKey {
 

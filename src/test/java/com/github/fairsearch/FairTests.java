@@ -1,10 +1,9 @@
-package com.fairsearch.fair;
+package com.github.fairsearch;
 
-import com.fairsearch.fair.utils.FairScoreDoc;
+import com.github.fairsearch.utils.FairScoreDoc;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.util.LuceneTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

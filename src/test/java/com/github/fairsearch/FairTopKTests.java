@@ -1,8 +1,8 @@
-package com.fairsearch.fair;
+package com.github.fairsearch;
 
-import com.fairsearch.fair.utils.FairnessTableLookup;
-import com.fairsearch.fair.lib.FairTopK;
-import com.fairsearch.fair.lib.MTableGenerator;
+import com.github.fairsearch.utils.FairnessTableLookup;
+import com.github.fairsearch.lib.FairTopK;
+import com.github.fairsearch.lib.MTableGenerator;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.util.LuceneTestCase;

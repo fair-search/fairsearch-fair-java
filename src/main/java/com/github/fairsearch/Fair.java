@@ -1,12 +1,11 @@
-package com.fairsearch.fair;
+package com.github.fairsearch;
 
-import com.fairsearch.fair.lib.FailProbabilityCalculator;
-import com.fairsearch.fair.lib.FairTopK;
-import com.fairsearch.fair.lib.MTableFailProbPair;
-import com.fairsearch.fair.lib.MTableGenerator;
-import com.fairsearch.fair.lib.RecursiveNumericFailProbabilityCalculator;
-import com.fairsearch.fair.utils.FairScoreDoc;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+import com.github.fairsearch.lib.FailProbabilityCalculator;
+import com.github.fairsearch.lib.FairTopK;
+import com.github.fairsearch.lib.MTableFailProbPair;
+import com.github.fairsearch.lib.MTableGenerator;
+import com.github.fairsearch.lib.RecursiveNumericFailProbabilityCalculator;
+import com.github.fairsearch.utils.FairScoreDoc;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 
@@ -89,7 +88,8 @@ public class Fair {
      */
     public double computeFailureProbability(int[] mtable) {
         if(mtable.length != this.k) {
-            throw new ValueException("Number of elements k and (int[]) mtable length must be equal!");
+            LOGGER.severe("Number of elements k and (int[]) mtable length must be equal!");
+            System.exit(-1);
         }
 
         FailProbabilityCalculator calculator = new RecursiveNumericFailProbabilityCalculator(this.k, this.p, this.alpha);
@@ -113,7 +113,7 @@ public class Fair {
 
         //if the mtable has a different number elements than there are in the top docs return false
         if(docs.scoreDocs.length != mtable.length)
-            throw new ValueException("Number of documents in (TopDocs) docs and (int[]) mtable length are not the same!");
+            throw new IllegalArgumentException("Number of documents in (TopDocs) docs and (int[]) mtable length are not the same!");
 
         //check number of protected element at each rank
         for(int i=0; i < docs.scoreDocs.length; i++) {
@@ -163,14 +163,14 @@ public class Fair {
     private static void validateBasicParameters(int k, double p, double alpha) {
         if(k < 10 || k > 400) {
             if(k < 2) {
-                throw new ValueException("Total number of elements `k` should be between 10 and 400");
+                throw new IllegalArgumentException("Total number of elements `k` should be between 10 and 400");
             } else {
                 LOGGER.warning("Library has not been tested with values outside this range");
             }
         }
         if(p < 0.02 || p > 0.98) {
             if(p < 0 || p > 1) {
-                throw new ValueException("The proportion of protected candidates `p` in the top-k ranking should " +
+                throw new IllegalArgumentException("The proportion of protected candidates `p` in the top-k ranking should " +
                         "be between 0.02 and 0.98");
             } else {
                 LOGGER.warning("Library has not been tested with values outside this range");
@@ -182,7 +182,7 @@ public class Fair {
     private static void validateAlpha(double alpha) {
         if(alpha < 0.01 || alpha > 0.15) {
             if(alpha < 0.001 || alpha > 0.5) {
-                throw new ValueException("The significance level `alpha` must be between 0.01 and 0.15");
+                throw new IllegalArgumentException("The significance level `alpha` must be between 0.01 and 0.15");
             } else {
                 LOGGER.warning("Library has not been tested with values outside this range");
             }
