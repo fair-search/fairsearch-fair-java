@@ -1,6 +1,6 @@
-package com.fairsearch.fair.lib;
+package com.github.fairsearch.lib;
 
-import com.fairsearch.fair.utils.LegalAssignmentKey;
+import com.github.fairsearch.utils.LegalAssignmentKey;
 
 import java.util.ArrayList;
 import java.util.HashMap;

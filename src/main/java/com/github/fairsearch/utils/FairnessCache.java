@@ -1,6 +1,6 @@
-package com.fairsearch.fair.utils;
+package com.github.fairsearch.utils;
 
-import com.fairsearch.fair.lib.MTableGenerator;
+import com.github.fairsearch.lib.MTableGenerator;
 
 import java.util.concurrent.ConcurrentHashMap;
 

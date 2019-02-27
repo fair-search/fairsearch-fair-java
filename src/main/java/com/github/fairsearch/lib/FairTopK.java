@@ -1,7 +1,7 @@
-package com.fairsearch.fair.lib;
+package com.github.fairsearch.lib;
 
-import com.fairsearch.fair.utils.FairnessTableLookup;
-import com.fairsearch.fair.utils.InternalFairnessTableLookup;
+import com.github.fairsearch.utils.FairnessTableLookup;
+import com.github.fairsearch.utils.InternalFairnessTableLookup;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 

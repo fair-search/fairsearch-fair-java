@@ -1,4 +1,4 @@
-package com.fairsearch.fair.lib;
+package com.github.fairsearch.lib;
 
 public class MTableFailProbPair {
 

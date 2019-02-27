@@ -1,7 +1,6 @@
-package com.fairsearch.fair.lib;
+package com.github.fairsearch.lib;
 
-
-import com.fairsearch.fair.utils.DataFrame;
+import com.github.fairsearch.utils.DataFrame;
 import org.apache.commons.math3.distribution.BinomialDistribution;
 
 public class MTableGenerator {
@@ -76,7 +75,7 @@ public class MTableGenerator {
     }
 
     private boolean alphaIsValid(double alpha) {
-        if (alpha < 0 || alpha >=1) {
+        if (alpha < 0 || alpha > 1) {
             throw new IllegalArgumentException("Parameter alpha must be at in [0, 1]");
         } else {
             return true;
@@ -84,15 +83,15 @@ public class MTableGenerator {
     }
 
     private boolean nIsValid(int n) {
-        if (n < 10 || n > 400) {
-            throw new IllegalArgumentException("Parameter n must be at in [10, 400]");
+        if (n < 2) {
+            throw new IllegalArgumentException("Parameter k must be at in [10, 400]");
         } else {
             return true;
         }
     }
 
     private boolean pIsValid(double p) {
-        if (p >= 1d || p <= 0.05d) {
+        if (p > 1 || p < 0) {
             throw new IllegalArgumentException("Parameter p must be in [0.05, 0.95]");
         } else {
             return true;

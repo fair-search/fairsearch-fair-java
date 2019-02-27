@@ -1,7 +1,7 @@
-package com.fairsearch.fair.lib;
+package com.github.fairsearch.lib;
 
-import com.fairsearch.fair.utils.DataFrame;
-import com.fairsearch.fair.utils.BinomDistKey;
+import com.github.fairsearch.utils.DataFrame;
+import com.github.fairsearch.utils.BinomDistKey;
 import org.apache.commons.math3.distribution.BinomialDistribution;
 
 import java.util.ArrayList;
