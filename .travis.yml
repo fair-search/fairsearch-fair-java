@@ -7,4 +7,4 @@ script:
  - ./gradlew clean check
 
 after_success:
-  - CI=true TRAVIS=true coveralls --verbose
+  - ./gradlew clean test jacoco:report coveralls:report
