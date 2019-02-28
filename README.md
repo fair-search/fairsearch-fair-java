@@ -7,7 +7,7 @@ This is the Java library of the core algorithms used to do fair search.
 
 ## Installation
 
-You can import the library with maven in your pom.xml file:
+You can import the library with maven in your `pom.xml` file:
 ```xml
 <dependency>
   <groupId>com.github.fair-search</groupId>
@@ -15,7 +15,7 @@ You can import the library with maven in your pom.xml file:
   <version>1.0.2</version>
 </dependency>
 ```
-or, if you are using Gradle, in your build.gradle file this in the `dependencies` block:
+or, if you are using Gradle, in your `build.gradle` file add this in the `dependencies` block:
 ```gradle
 compile "com.github.fair-search:fairsearch-core:1.0.2"
 ```
