@@ -7,15 +7,26 @@ This is the Java library of the core algorithms used to do fair search.
 
 ## Installation
 
-1. Clone this repository `git clone https://github.com/fair-search/fairsearch-core.git`
-2. Change directory to the directory where you cloned the repository `cd WHERE_ITS_DOWNLOADED/fairsearch-core/java`
-3. Use any IDE to work with the code
+You can import the library with maven in your pom.xml file:
+```xml
+<dependency>
+  <groupId>com.github.fair-search</groupId>
+  <artifactId>fairsearch-core</artifactId>
+  <version>1.0.2</version>
+</dependency>
+```
+or, if you are using Gradle, in your build.gradle file this in the `dependencies` block:
+```gradle
+compile "com.github.fair-search:fairsearch-core:1.0.2"
+```
+
+And, that's it!
 
 ## Using it in your code
 
 Add the JAR file to the build path of your project and you are *set*. The key methods are contained in the following classes:
-- `com.github.fair-search.Fair`
-- `com.github.fair-search.Simulator`
+- `com.github.fairsearch.Fair`
+- `com.github.fairsearch.Simulator`
 
 The library contains sufficient Java doc for each of the functions.
 
@@ -91,6 +102,10 @@ TopDocs reRanked = fair.reRank(unfairRanking);
 *Note*: The numbers shown here may differ slightly from run to run as there is randomness factor involved.
 
 ## Development
+
+1. Clone this repository `git clone https://github.com/fair-search/fairsearch-core.git`
+2. Change directory to the directory where you cloned the repository `cd WHERE_ITS_DOWNLOADED/fairsearch-core/java`
+3. Use any IDE to work with the code
 
 If you want to make your own builds you can do that with the Gradle wrapper:
 - To make a JAR without the external dependencies: 
