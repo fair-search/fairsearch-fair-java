@@ -126,3 +126,5 @@ python/fairsearchcore/__pycache__/
 python/tests/__pycache__/
 
 python/\.coverage
+
+fairsearch-core\.iml
