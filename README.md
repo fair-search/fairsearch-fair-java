@@ -83,7 +83,7 @@ double experimental = Simulator.computeFailureProbability(mtable, rankings);
 Let's get the alpha adjusted (used to create an adjusted mtable)
 ```java
 //get alpha adjusted
-double alphaAdjusted = fair.adjustAlpha()ч
+double alphaAdjusted = fair.adjustAlpha();
 //alphaAdjusted -> 0.07812500000000001
 ```
 Apply a fair re-ranking to a given ranking:
