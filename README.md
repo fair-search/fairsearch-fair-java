@@ -93,11 +93,29 @@ import com.github.fairsearch.FairScoreDoc;
 //also, import Lucene's TopDocs class
 import org.apache.lucene.search.TopDocs;
 
-//let's manually create an unfair ranking (False -> unprotexted, True -> protected)
-TopDocs unfairRanking = null;
+//let's manually create an unfair ranking (False -> unprotected, True -> protected)
+FairScoreDoc[] docs = {new FairScoreDoc(20, 20, false), new FairScoreDoc(19, 19, false),
+                new FairScoreDoc(18, 18, false), new FairScoreDoc(17, 17, false),
+                new FairScoreDoc(16, 16, false), new FairScoreDoc(15, 15, false),
+                new FairScoreDoc(14, 14, false), new FairScoreDoc(13, 13, false),
+                new FairScoreDoc(12, 12, false), new FairScoreDoc(11, 11, false),
+                new FairScoreDoc(10, 10, false), new FairScoreDoc(9, 9, false),
+                new FairScoreDoc(8, 8, false), new FairScoreDoc(7, 7, false),
+                new FairScoreDoc(6, 6, false), new FairScoreDoc(5, 5, true),
+                new FairScoreDoc(4, 4, true), new FairScoreDoc(3, 3, true),
+                new FairScoreDoc(2, 2, true), new FairScoreDoc(1, 1, true)};
+TopDocs unfairRanking = new TopDocs(docs.length, docs1, Float.NaN);
+
+// let's check if the ranking is fair
+boolean isFair = fair.isFair(unfairRanking);
+// isFair -> false
 
 //now re-rank the unfair ranking  
 TopDocs reRanked = fair.reRank(unfairRanking);
+
+// now let's see if the ranking is fair
+boolean isFair = fair.isFair(reRanked);
+// isFair -> true
 ```
 *Note*: The numbers shown here may differ slightly from run to run as there is randomness factor involved.
 
