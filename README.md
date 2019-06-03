@@ -94,6 +94,7 @@ import com.github.fairsearch.FairScoreDoc;
 import org.apache.lucene.search.TopDocs;
 
 //let's manually create an unfair ranking (False -> unprotected, True -> protected)
+//in this example the first document (docid=20) has a score of 20, the last document (docid=1) a score of 1
 FairScoreDoc[] docs = {new FairScoreDoc(20, 20, false), new FairScoreDoc(19, 19, false),
                 new FairScoreDoc(18, 18, false), new FairScoreDoc(17, 17, false),
                 new FairScoreDoc(16, 16, false), new FairScoreDoc(15, 15, false),
