@@ -162,5 +162,5 @@ This code was developed by [Ivan Kitanovski](http://ivankitanovski.com/) and [To
 
 ## See also
 
-You can also see the [FA*IR plug-in for ElasticSearch](https://github.com/fair-search/fairsearch-elasticsearch-plugin) 
-and [FA*IR search core Python library](https://github.com/fair-search/fairsearchcore-python).
+You can also see the [FA*IR plug-in for ElasticSearch](https://github.com/fair-search/fairsearch-fair-for-elasticsearch) 
+and [FA*IR search core Python library](https://github.com/fair-search/fairsearch-fair-python).
